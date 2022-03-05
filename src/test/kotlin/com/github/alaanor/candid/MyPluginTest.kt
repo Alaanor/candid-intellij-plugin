@@ -1,4 +1,4 @@
-package com.github.alaanor.candidintellijplugin
+package com.github.alaanor.candid
 
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.psi.xml.XmlFile
