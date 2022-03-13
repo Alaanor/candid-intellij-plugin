@@ -1,0 +1,27 @@
+{
+  parserClass="com.github.alaanor.candid.CandidParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Candid"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.alaanor.candid.psi"
+  psiImplPackage="com.github.alaanor.candid.psi.impl"
+
+  elementTypeHolderClass="com.github.alaanor.candid.CandidTypes"
+  elementTypeClass="com.github.alaanor.candid.psi.CandidElementType"
+  tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
+
+  tokens = [
+    OP_EQ = "="
+    KW_TYPE = "type"
+
+    id = 'regexp:[_a-zA-Z][_a-zA-Z0-9]*'
+  ]
+}
+
+candidFile ::= prog
+prog ::= (def';')*
+
+def ::= KW_TYPE id OP_EQ datatype
+datatype ::= id

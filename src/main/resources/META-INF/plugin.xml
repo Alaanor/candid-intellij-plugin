@@ -7,10 +7,14 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Candid File"
+        <fileType name="Candid file"
                   implementationClass="com.github.alaanor.candid.CandidFileType"
                   fieldName="INSTANCE"
                   language="Candid"
                   extensions="did"/>
+        <lang.parserDefinition language="Candid"
+                               implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Candid"
+                                       implementationClass="com.github.alaanor.candid.CandidSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>

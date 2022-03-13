@@ -1,23 +1,24 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.intellij.mainSourceSet
 
 fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
-    // Java support
     id("java")
-    // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
-    // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.4.0"
-    // Gradle Changelog Plugin
+    id("org.jetbrains.grammarkit") version "2021.2.1"
     id("org.jetbrains.changelog") version "1.3.1"
-    // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
 }
 
 group = properties("pluginGroup")
 version = properties("pluginVersion")
+
+sourceSets {
+    mainSourceSet(project).java.srcDirs("src/main/gen")
+}
 
 // Configure project's dependencies
 repositories {
@@ -112,5 +113,36 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
+    }
+
+    generateLexer {
+        // source flex file
+        source.set("grammar/Candid.flex")
+
+        // target directory for lexer
+        targetDir.set("src/main/gen/com/github/alaanor/candid/lexer/")
+
+        // target classname, target file will be targetDir/targetClass.java
+        targetClass.set("CandidLexer")
+
+        // if set, plugin will remove a lexer output file before generating new one. Default: false
+        purgeOldFiles.set(true)
+    }
+
+    generateParser {
+        // source bnf file
+        source.set("grammar/Candid.bnf")
+
+        // optional, task-specific root for the generated files. Default: none
+        targetRoot.set("src/main/gen")
+
+        // path to a parser file, relative to the targetRoot
+        pathToParser.set("/com/github/alaanor/candid/parser/CandidParserGenerated.java")
+
+        // path to a directory with generated psi files, relative to the targetRoot
+        pathToPsiRoot.set("/com/github/alaanor/candid/psi")
+
+        // if set, the plugin will remove a parser output file and psi output directory before generating new ones. Default: false
+        purgeOldFiles.set(true)
     }
 }
