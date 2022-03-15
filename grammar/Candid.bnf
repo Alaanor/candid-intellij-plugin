@@ -11,68 +11,31 @@
   elementTypeHolderClass="com.github.alaanor.candid.CandidTypes"
   elementTypeClass="com.github.alaanor.candid.psi.CandidElementType"
   tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
-
-  tokens = [
-    OP_EQ = "="
-    TYPE = "type"
-
-    BOOL = "bool"
-    TEXT = "text"
-    NULL = "null"
-    RESERVED = "reserved"
-    EMPTY = "empty"
-    PRINCIPAL = "principal"
-
-    NAT = "nat"
-    NAT8 = "nat8"
-    NAT16 = "nat16"
-    NAT32 = "nat32"
-    NAT64 = "nat64"
-    INT = "int"
-    INT8 = "int8"
-    INT16 = "int16"
-    INT32 = "int32"
-    INT64 = "int64"
-    FLOAT32 = "float32"
-    FLOAT64 = "float64"
-
-    OPT = "opt"
-    VEC = "vec"
-    RECORD = "record"
-    VARIANT = "variant"
-    FUNC = "func"
-    SERVICE = "service"
-
-    id = 'regexp:[_a-zA-Z][_a-zA-Z0-9]*'
-    digit = 'regexp:[0-9]'
-    hex = 'regexp:[0-9a-fA-F]'
-    ascii = 'regexp:[\x20-\x21\x23-\x5b\x5d-\x7e]'
-  ]
 }
 
 candidFile ::= prog
 prog ::= (def';')*
 
-def ::= TYPE id OP_EQ datatype
-fieldtype ::= nat ':' datatype
-datatype ::= id | primtype | comptype
-comptype ::= constype | reftype
+def ::= TYPE id OP_EQ data_type
 
-primtype ::= numtype | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
-numtype ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
+private field_type ::= nat_type ':' data_type | name ':' data_type
+private data_type ::= id | prim_type | comp_type
+private comp_type ::= cons_type | ref_type
+private prim_type ::= num_type | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
+private num_type ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
         | INT | INT8 | INT16 | INT32 | INT64
         | FLOAT32 | FLOAT64
-constype ::= OPT datatype
-        | VEC datatype
-        | RECORD '{' (fieldtype';')* '}'
-        | VARIANT '{' (fieldtype';')* '}'
-reftype ::= FUNC functype | SERVICE actortype
+private cons_type ::= OPT data_type
+        | VEC data_type
+        | RECORD '{' (field_type';')* '}'
+        | VARIANT '{' (field_type';')* '}'
+private ref_type ::= FUNC func_type | SERVICE actor_type
+private nat_type ::= num | '0x'hex_num
 
 num ::= digit('_'? digit)*
-hexnum ::= hex('_'? hex)*
-nat ::= num | '0x'hexnum
-name ::= id | text
-text ::= '"'char*'"'
-char ::= utf8 | '\' hex hex | '\' escape | '\u{'hexnum'}'
+hex_num ::= hex('_'? hex)*
+name ::= id | text_type
+text_type ::= '"'char*'"'
+char ::= utf8 | '\' hex hex | '\' escape | // '\ u{'hexnum'}' @TODO
 escape ::= 'n' | 'r' | 't' | '\' | '"' | "'"
 utf8 ::= ascii // TODO utf8enc

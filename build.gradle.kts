@@ -145,4 +145,13 @@ tasks {
         // if set, the plugin will remove a parser output file and psi output directory before generating new ones. Default: false
         purgeOldFiles.set(true)
     }
+
+}
+
+tasks.create<Delete>("cleanGeneratedFiles") {
+    delete("src/main/gen")
+}
+
+tasks.register<GradleBuild>("cleanBuildRunIde") {
+    tasks = listOf("cleanGeneratedFiles", "generateLexer", "generateParser", "runIde")
 }

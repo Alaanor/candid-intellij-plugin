@@ -54,8 +54,6 @@ ASCII=[\x20-\x21\x23-\x5b\x5d-\x7e]
   "variant"          { return VARIANT; }
   "func"             { return FUNC; }
   "service"          { return SERVICE; }
-  "functype"         { return FUNCTYPE; }
-  "actortype"        { return ACTORTYPE; }
 
   {ID}               { return ID; }
   {DIGIT}            { return DIGIT; }

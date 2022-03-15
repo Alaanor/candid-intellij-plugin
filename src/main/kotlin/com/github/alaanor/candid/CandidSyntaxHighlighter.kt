@@ -21,10 +21,12 @@ class CandidSyntaxHighlighter: SyntaxHighlighterBase() {
     }
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> {
-        if (tokenType == CandidTypes.TYPE) {
-            return DEFINITION_KEYS
+        return when (tokenType) {
+            CandidTypes.TYPE -> DEFINITION_KEYS
+            CandidTypes.RECORD -> DEFINITION_KEYS
+            CandidTypes.VARIANT -> DEFINITION_KEYS
+            CandidTypes.SERVICE -> DEFINITION_KEYS
+            else -> EMPTY_KEYS
         }
-
-        return EMPTY_KEYS
     }
 }
