@@ -11,31 +11,42 @@
   elementTypeHolderClass="com.github.alaanor.candid.CandidTypes"
   elementTypeClass="com.github.alaanor.candid.psi.CandidElementType"
   tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
+
+  tokens = [
+    SEMICOLON = ";"
+    COLON = ":"
+    LBRACE = "{"
+    RBRACE = "}"
+    UNDERSCORE = "_"
+    HEX_0X = '0x'
+    DOUBLE_QUOTE = '"'
+  ]
 }
 
 candidFile ::= prog
-prog ::= (def';')*
+private prog ::= (def';')*
 
 def ::= TYPE id OP_EQ data_type
 
-private field_type ::= nat_type ':' data_type | name ':' data_type
+private field_type ::= nat_type ':' data_type
+    | name ':' data_type
+    | data_type
+    | nat_type
+    | name
 private data_type ::= id | prim_type | comp_type
 private comp_type ::= cons_type | ref_type
 private prim_type ::= num_type | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
 private num_type ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
-        | INT | INT8 | INT16 | INT32 | INT64
-        | FLOAT32 | FLOAT64
+    | INT | INT8 | INT16 | INT32 | INT64
+    | FLOAT32 | FLOAT64
 private cons_type ::= OPT data_type
-        | VEC data_type
-        | RECORD '{' (field_type';')* '}'
-        | VARIANT '{' (field_type';')* '}'
+    | VEC data_type
+    | RECORD '{' (field_type';')* '}'
+    | VARIANT '{' (field_type';')* '}'
 private ref_type ::= FUNC func_type | SERVICE actor_type
-private nat_type ::= num | '0x'hex_num
+private nat_type ::= num | hex_0x
 
 num ::= digit('_'? digit)*
-hex_num ::= hex('_'? hex)*
-name ::= id | text_type
-text_type ::= '"'char*'"'
-char ::= utf8 | '\' hex hex | '\' escape | // '\ u{'hexnum'}' @TODO
-escape ::= 'n' | 'r' | 't' | '\' | '"' | "'"
-utf8 ::= ascii // TODO utf8enc
+private name ::= id | string_literal
+private string_literal ::= '"'char*'"'
+private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape

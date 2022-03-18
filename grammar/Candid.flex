@@ -16,15 +16,42 @@ import static com.github.alaanor.candid.CandidTypes.*;
 %type IElementType
 %unicode
 
-EOL=\R
-WHITE_SPACE=\s+
+WHITE_SPACE = \s+
 
-ID=[_a-zA-Z][_a-zA-Z0-9]*
-DIGIT=[0-9]
-HEX=[0-9a-fA-F]
-ASCII=[\x20-\x21\x23-\x5b\x5d-\x7e]
+id = [_a-zA-Z][_a-zA-Z0-9]*
+digit = [0-9]
+escape = \\ [nrt\\\"\']
+
+
+hex = [0-9a-fA-F]
+hex_num = {hex} ("_"? {hex})*
+hex_0x = "0x" {hex_num}
+hex_escape_short = \\ {hex} {hex}
+hex_escape_long = \\u\{ {hex_num} \}
+
+ascii = [\x20-\x21\x23-\x5b\x5d-\x7e]
+utf8enc = [\u0080-\u07ff]
+        | [\u0800-\u0fff]
+        | [\u1000-\ucfff]
+        | [\ud000-\ud7ff]
+        | [\ue000-\uffff]
+        | [\U010000-\U03ffff]
+        | [\U040000-\U0fffff]
+        | [\U100000-\U10ffff]
+
+%state STRING_LITERAL
 
 %%
+
+<STRING_LITERAL> {
+  \"                 { yybegin(YYINITIAL); return DOUBLE_QUOTE; }
+  {escape}           { return ESCAPE; }
+  {hex_escape_short} { return HEX_ESCAPE_SHORT; }
+  {hex_escape_long}  { return HEX_ESCAPE_LONG; }
+  {ascii}            { return ASCII; }
+  {utf8enc}          { return UTF8ENC; }
+}
+
 <YYINITIAL> {
   {WHITE_SPACE}      { return WHITE_SPACE; }
 
@@ -55,11 +82,17 @@ ASCII=[\x20-\x21\x23-\x5b\x5d-\x7e]
   "func"             { return FUNC; }
   "service"          { return SERVICE; }
 
-  {ID}               { return ID; }
-  {DIGIT}            { return DIGIT; }
-  {HEX}              { return HEX; }
-  {ASCII}            { return ASCII; }
+  ";"                { return SEMICOLON; }
+  ":"                { return COLON; }
+  "{"                { return LBRACE; }
+  "}"                { return RBRACE; }
+  "_"                { return UNDERSCORE; }
+  "0x"               { return HEX_0X; }
 
+  {id}               { return ID; }
+  {digit}            { return DIGIT; }
+
+  \"                 { yybegin(STRING_LITERAL); return DOUBLE_QUOTE; }
 }
 
 [^] { return BAD_CHARACTER; }

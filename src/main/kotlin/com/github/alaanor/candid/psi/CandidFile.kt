@@ -12,6 +12,6 @@ class CandidFile (fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProv
     }
 
     override fun toString(): String {
-        return "Candid File"
+        return "Candid \n File"
     }
 }
