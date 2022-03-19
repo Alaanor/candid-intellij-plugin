@@ -13,6 +13,8 @@
   tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
 
   tokens = [
+    TYPE = "type"
+    OP_EQ = "="
     SEMICOLON = ";"
     COLON = ":"
     LBRACE = "{"
@@ -26,7 +28,7 @@
 candidFile ::= prog
 private prog ::= (def';')*
 
-def ::= TYPE id OP_EQ data_type
+def ::= 'type' id '=' data_type
 
 private field_type ::= nat_type ':' data_type
     | name ':' data_type

@@ -1,4 +1,4 @@
-package com.github.alaanor.candid
+package com.github.alaanor.candid.highlight
 
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory

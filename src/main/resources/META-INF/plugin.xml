@@ -15,6 +15,7 @@
         <lang.parserDefinition language="Candid"
                                implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Candid"
-                                       implementationClass="com.github.alaanor.candid.CandidSyntaxHighlighterFactory"/>
+                                       implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
     </extensions>
 </idea-plugin>
