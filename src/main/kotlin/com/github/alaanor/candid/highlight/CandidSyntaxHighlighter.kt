@@ -30,7 +30,7 @@ class CandidSyntaxHighlighter : SyntaxHighlighterBase() {
 
         put(CandidTypes.ID, CandidColor.IDENTIFIER)
 
-        put(CandidTypes.NAT, CandidColor.TYPE)
+        put(CandidTypes.NAT, CandidColor.KEYWORD)
         put(CandidTypes.NAT8, CandidColor.KEYWORD)
         put(CandidTypes.NAT16, CandidColor.KEYWORD)
         put(CandidTypes.NAT32, CandidColor.KEYWORD)

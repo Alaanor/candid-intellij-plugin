@@ -17,5 +17,7 @@
         <lang.syntaxHighlighterFactory language="Candid"
                                        implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
+        <lang.refactoringSupport language="Candid"
+                                 implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
     </extensions>
 </idea-plugin>

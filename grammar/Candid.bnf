@@ -28,14 +28,14 @@
 candidFile ::= prog
 private prog ::= (def';')*
 
-def ::= 'type' id '=' data_type
+def ::= 'type' identifier '=' data_type
 
 private field_type ::= nat_type ':' data_type
     | name ':' data_type
     | data_type
     | nat_type
     | name
-private data_type ::= id | prim_type | comp_type
+private data_type ::= identifier | prim_type | comp_type
 private comp_type ::= cons_type | ref_type
 private prim_type ::= num_type | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
 private num_type ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
@@ -52,3 +52,8 @@ num ::= digit('_'? digit)*
 private name ::= id | string_literal
 private string_literal ::= '"'char*'"'
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
+
+identifier ::= id {
+    implements="com.github.alaanor.candid.psi.primitive.CandidNamedElement"
+    mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierMixin"
+}
