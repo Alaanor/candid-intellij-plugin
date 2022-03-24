@@ -13,28 +13,43 @@
   tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
 
   tokens = [
-    TYPE = "type"
     OP_EQ = "="
     SEMICOLON = ";"
     COLON = ":"
     LBRACE = "{"
     RBRACE = "}"
+    LPAREN = "("
+    RPAREN = ")"
+    LARROW = "->"
     UNDERSCORE = "_"
-    HEX_0X = '0x'
     DOUBLE_QUOTE = '"'
+    HEX_0X = '0x'
+    TYPE = "type"
+    ONEWAY = 'oneway'
+    QUERY = 'query'
   ]
 }
 
 candidFile ::= prog
-private prog ::= (def';')*
 
-def ::= 'type' identifier '=' data_type
+private meta list ::= <<p>> (<<s>> !<<s>> <<p>>?)*
 
+private prog ::= ((def ';')* actor | <<list def ';'>>)
+private def ::= 'type' identifier '=' data_type
+private actor ::= 'service' identifier? ':' (tup_type '->')? (actor_type | identifier)
+
+private actor_type ::= '{' (meth_type (';' meth_type?)* !meth_type)? '}'
+private meth_type ::= name ':' (func_type | identifier)
+private func_type ::= tup_type '->' tup_type func_annotation*
+private func_annotation ::= 'oneway' | 'query'
+private tup_type ::= '(' arg_type? ')'
+private arg_type ::= data_type
 private field_type ::= nat_type ':' data_type
     | name ':' data_type
     | data_type
     | nat_type
     | name
+
 private data_type ::= identifier | prim_type | comp_type
 private comp_type ::= cons_type | ref_type
 private prim_type ::= num_type | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
@@ -45,10 +60,10 @@ private cons_type ::= OPT data_type
     | VEC data_type
     | RECORD '{' (field_type';')* '}'
     | VARIANT '{' (field_type';')* '}'
+
 private ref_type ::= FUNC func_type | SERVICE actor_type
 private nat_type ::= num | hex_0x
-
-num ::= digit('_'? digit)*
+private num ::= digit('_'? digit)*
 private name ::= id | string_literal
 private string_literal ::= '"'char*'"'
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
