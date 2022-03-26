@@ -1,0 +1,21 @@
+type Age = nat;
+type User = record {
+    age: Age;
+    name: text;
+    "description": opt text;
+};
+
+type UserLookupResult = variant {
+    Ok: User;
+    Err: variant {
+        NotFound: null;
+        Other: record {
+            error_code: nat;
+        };
+    };
+};
+
+service: {
+    insert: (Age, text) -> ();
+    lookup: (text) -> (UserLookupResult) query;
+}

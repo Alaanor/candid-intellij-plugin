@@ -49,6 +49,7 @@ class CandidSyntaxHighlighter : SyntaxHighlighterBase() {
         put(CandidTypes.EMPTY, CandidColor.KEYWORD)
         put(CandidTypes.PRINCIPAL, CandidColor.KEYWORD)
         put(CandidTypes.TYPE, CandidColor.KEYWORD)
+        put(CandidTypes.OPT, CandidColor.KEYWORD)
         put(CandidTypes.RECORD, CandidColor.KEYWORD)
         put(CandidTypes.VARIANT, CandidColor.KEYWORD)
         put(CandidTypes.SERVICE, CandidColor.KEYWORD)

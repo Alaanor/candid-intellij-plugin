@@ -98,6 +98,7 @@ utf8enc = [\u0080-\u07ff]
   "query"           { return QUERY; }
 
   ";"               { return SEMICOLON; }
+  ","               { return COMMA; }
   ":"               { return COLON; }
   "{"               { return LBRACE; }
   "}"               { return RBRACE; }

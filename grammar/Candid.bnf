@@ -17,6 +17,7 @@
     BLOCK_COMMENT = 'BLOCK_COMMENT'
     OP_EQ = "="
     SEMICOLON = ";"
+    COMMA = ","
     COLON = ":"
     LBRACE = "{"
     RBRACE = "}"
@@ -27,6 +28,8 @@
     DOUBLE_QUOTE = '"'
     HEX_0X = '0x'
     TYPE = "type"
+    OPT = "opt"
+    SERVICE = 'service'
     ONEWAY = 'oneway'
     QUERY = 'query'
   ]
@@ -40,11 +43,11 @@ private prog ::= ((def ';')* actor | <<list def ';'>>)?
 private def ::= 'type' identifier '=' data_type
 private actor ::= 'service' identifier? ':' (tup_type '->')? (actor_type | identifier)
 
-private actor_type ::= '{' (meth_type (';' meth_type?)* !meth_type)? '}'
+private actor_type ::= '{' <<list meth_type ';' >>? '}'
 private meth_type ::= name ':' (func_type | identifier)
 private func_type ::= tup_type '->' tup_type func_annotation*
 private func_annotation ::= 'oneway' | 'query'
-private tup_type ::= '(' arg_type? ')'
+private tup_type ::= '(' <<list arg_type ",">>? ')'
 private arg_type ::= data_type
 private field_type ::= nat_type ':' data_type
     | name ':' data_type
@@ -60,8 +63,8 @@ private num_type ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
     | FLOAT32 | FLOAT64
 private cons_type ::= OPT data_type
     | VEC data_type
-    | RECORD '{' (field_type';')* '}'
-    | VARIANT '{' (field_type';')* '}'
+    | RECORD '{' <<list field_type ';'>>? '}'
+    | VARIANT '{' <<list field_type ';'>>? '}'
 
 private ref_type ::= FUNC func_type | SERVICE actor_type
 private nat_type ::= num | hex_0x
