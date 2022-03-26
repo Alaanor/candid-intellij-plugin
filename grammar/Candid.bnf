@@ -36,7 +36,7 @@ candidFile ::= prog
 
 private meta list ::= <<p>> (<<s>> !<<s>> <<p>>?)*
 
-private prog ::= ((def ';')* actor | <<list def ';'>>)
+private prog ::= ((def ';')* actor | <<list def ';'>>)?
 private def ::= 'type' identifier '=' data_type
 private actor ::= 'service' identifier? ':' (tup_type '->')? (actor_type | identifier)
 
@@ -67,7 +67,7 @@ private ref_type ::= FUNC func_type | SERVICE actor_type
 private nat_type ::= num | hex_0x
 private num ::= digit('_'? digit)*
 private name ::= id | string_literal
-private string_literal ::= '"'char*'"'
+string_literal ::= '"'char*'"'
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 
 identifier ::= id {

@@ -36,7 +36,7 @@ class CandidParserDefinition : ParserDefinition {
     }
 
     override fun getStringLiteralElements(): TokenSet {
-        return TokenSet.EMPTY
+        return TokenSet.create(CandidTypes.STRING_LITERAL)
     }
 
     override fun createElement(node: ASTNode?): PsiElement {
