@@ -32,7 +32,7 @@ class CandidParserDefinition : ParserDefinition {
     }
 
     override fun getCommentTokens(): TokenSet {
-        return TokenSet.EMPTY
+        return TokenSet.create(CandidTypes.LINE_COMMENT, CandidTypes.BLOCK_COMMENT)
     }
 
     override fun getStringLiteralElements(): TokenSet {

@@ -2,6 +2,7 @@ package com.github.alaanor.candid.lexer;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
+import com.github.alaanor.candid.CandidTypes;
 
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
@@ -22,6 +23,8 @@ id = [_a-zA-Z][_a-zA-Z0-9]*
 digit = [0-9]
 escape = \\ [nrt\\\"\']
 
+line_comment = ("//" [^\n]*)
+block_comment = "/*" !([^]* "*/" [^]*) "*/"?
 
 hex = [0-9a-fA-F]
 hex_num = {hex} ("_"? {hex})*
@@ -40,6 +43,8 @@ utf8enc = [\u0080-\u07ff]
         | [\U100000-\U10ffff]
 
 %state STRING_LITERAL
+%state LINE_COMMENT
+%state BLOCK_COMMENT
 
 %%
 
@@ -50,6 +55,14 @@ utf8enc = [\u0080-\u07ff]
   {hex_escape_long}     { return HEX_ESCAPE_LONG; }
   {ascii}               { return ASCII; }
   {utf8enc}             { return UTF8ENC; }
+}
+
+<LINE_COMMENT> {
+    {line_comment}  { yybegin(YYINITIAL); return CandidTypes.LINE_COMMENT; }
+}
+
+<BLOCK_COMMENT> {
+    {block_comment} { yybegin(YYINITIAL); return CandidTypes.BLOCK_COMMENT; }
 }
 
 <YYINITIAL> {
@@ -98,6 +111,8 @@ utf8enc = [\u0080-\u07ff]
   {digit}           { return DIGIT; }
 
   \"                { yybegin(STRING_LITERAL); return DOUBLE_QUOTE; }
+  "//"              { yypushback(2); yybegin(LINE_COMMENT); }
+  "/*"              { yypushback(2); yybegin(BLOCK_COMMENT); }
 }
 
 [^] { return BAD_CHARACTER; }

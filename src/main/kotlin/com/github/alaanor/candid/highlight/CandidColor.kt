@@ -12,6 +12,8 @@ enum class CandidColor(humanName: String, default: TextAttributesKey? = null) {
     IDENTIFIER("Identifier", DefaultLanguageHighlighterColors.IDENTIFIER),
     SEMICOLON("Semicolon", DefaultLanguageHighlighterColors.SEMICOLON),
     ESCAPE("Escape", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE),
+    LINE_COMMENT("Comments//Line comment", DefaultLanguageHighlighterColors.LINE_COMMENT),
+    BLOCK_COMMENT("Comments//Block comment", DefaultLanguageHighlighterColors.BLOCK_COMMENT),
     BAD_CHARACTER("Bad character", HighlighterColors.BAD_CHARACTER),
     ;
 

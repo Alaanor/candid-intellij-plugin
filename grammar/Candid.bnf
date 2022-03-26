@@ -13,6 +13,8 @@
   tokenTypeClass="com.github.alaanor.candid.psi.CandidTokenType"
 
   tokens = [
+    LINE_COMMENT = 'LINE_COMMENT'
+    BLOCK_COMMENT = 'BLOCK_COMMENT'
     OP_EQ = "="
     SEMICOLON = ";"
     COLON = ":"
