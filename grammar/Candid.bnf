@@ -26,47 +26,51 @@
     LARROW = "->"
     UNDERSCORE = "_"
     DOUBLE_QUOTE = '"'
-    HEX_0X = '0x'
-    TYPE = "type"
-    OPT = "opt"
-    SERVICE = 'service'
-    ONEWAY = 'oneway'
-    QUERY = 'query'
   ]
 }
 
 candidFile ::= prog
 
+// meta
+
 private meta list ::= <<p>> (<<s>> !<<s>> <<p>>?)*
 
-private prog ::= ((def ';')* actor | <<list def ';'>>)?
-private def ::= 'type' identifier '=' data_type
-private actor ::= 'service' identifier? ':' (tup_type '->')? (actor_type | identifier)
+// candid grammar
 
-private actor_type ::= '{' <<list meth_type ';' >>? '}'
+private prog ::= def* actor?
+private def ::= type identifier '=' data_type (';' | !(type | service)) { pin=1 }
+private actor ::= service identifier? ':' (tup_type '->')? (actor_type | identifier) {pin=1}
+
+private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 private meth_type ::= name ':' (func_type | identifier)
 private func_type ::= tup_type '->' tup_type func_annotation*
-private func_annotation ::= 'oneway' | 'query'
-private tup_type ::= '(' <<list arg_type ",">>? ')'
+private func_annotation ::= oneway | query
+private tup_type ::= '(' <<list arg_type ",">>? ')' { pin=1}
 private arg_type ::= data_type
-private field_type ::= nat_type ':' data_type
-    | name ':' data_type
-    | data_type
-    | nat_type
-    | name
+private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
+private field_type_record ::= field_type | data_type
+private field_type_variant ::= field_type | nat_type | name
 
-private data_type ::= identifier | prim_type | comp_type
+private data_type ::= identifier | comp_type | prim_type
 private comp_type ::= cons_type | ref_type
-private prim_type ::= num_type | BOOL | TEXT | NULL | RESERVED | EMPTY | PRINCIPAL
-private num_type ::= NAT | NAT8 | NAT16 | NAT32 | NAT64
-    | INT | INT8 | INT16 | INT32 | INT64
-    | FLOAT32 | FLOAT64
-private cons_type ::= OPT data_type
-    | VEC data_type
-    | RECORD '{' <<list field_type ';'>>? '}'
-    | VARIANT '{' <<list field_type ';'>>? '}'
+private prim_type ::= num_type | bool | text | null | reserved | empty | principal
+private num_type ::= nat | nat8 | nat16 | nat32 | nat64
+    | int | int8 | int16 | int32 | int64
+    | float32 | float64
 
-private ref_type ::= FUNC func_type | SERVICE actor_type
+private field_type_record_item ::= field_type_record (';' | !field_type_record) { pin=1 }
+private field_type_variant_item ::= field_type_variant (';' | !field_type_variant) { pin=1 }
+private cons_type ::= opt_statement | vec_statement | record_statement | variant_statement
+
+private opt_statement ::= opt data_type { pin=1 }
+private vec_statement ::= vec data_type { pin=1 }
+private record_statement ::= record '{' field_type_record_item* '}' { pin=1 }
+private variant_statement ::= variant '{' field_type_variant_item* '}' { pin=1 }
+
+private ref_type ::= func_statement | service_statement
+private func_statement ::= func func_type { pin=1 }
+private service_statement ::= service actor_type { pin=1 }
+
 private nat_type ::= num | hex_0x
 private num ::= digit('_'? digit)*
 private name ::= id | string_literal

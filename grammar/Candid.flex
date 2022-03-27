@@ -105,11 +105,11 @@ utf8enc = [\u0080-\u07ff]
   "("               { return LPAREN; }
   ")"               { return RPAREN; }
   "_"               { return UNDERSCORE; }
-  "0x"              { return HEX_0X; }
   "->"              { return LARROW; }
 
   {id}              { return ID; }
   {digit}           { return DIGIT; }
+  {hex_0x}           { return HEX_0X; }
 
   \"                { yybegin(STRING_LITERAL); return DOUBLE_QUOTE; }
   "//"              { yypushback(2); yybegin(LINE_COMMENT); }
