@@ -33,19 +33,20 @@ candidFile ::= prog
 
 // meta
 
-private meta list ::= <<p>> (<<s>> !<<s>> <<p>>?)*
+private meta list_item ::= <<p>> (<<s>> | !<<p>>) { pin=1 }
+private meta list ::= <<list_item <<p>> <<s>>>>*
 
 // candid grammar
 
 private prog ::= def* actor?
-private def ::= type identifier '=' data_type (';' | !(type | service)) { pin=1 }
-private actor ::= service identifier? ':' (tup_type '->')? (actor_type | identifier) {pin=1}
+private def ::= type identifier '=' data_type (';' | !(type | service)) { pin=1 name="type" }
+private actor ::= service identifier? ':' (tup_type '->')? (actor_type | identifier) { pin=1 name="service" }
 
 private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 private meth_type ::= name ':' (func_type | identifier)
 private func_type ::= tup_type '->' tup_type func_annotation*
 private func_annotation ::= oneway | query
-private tup_type ::= '(' <<list arg_type ",">>? ')' { pin=1}
+private tup_type ::= '(' <<list arg_type ",">>? ')' { pin=1 }
 private arg_type ::= data_type
 private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
 private field_type_record ::= field_type | data_type
@@ -58,26 +59,25 @@ private num_type ::= nat | nat8 | nat16 | nat32 | nat64
     | int | int8 | int16 | int32 | int64
     | float32 | float64
 
-private field_type_record_item ::= field_type_record (';' | !field_type_record) { pin=1 }
-private field_type_variant_item ::= field_type_variant (';' | !field_type_variant) { pin=1 }
 private cons_type ::= opt_statement | vec_statement | record_statement | variant_statement
 
-private opt_statement ::= opt data_type { pin=1 }
-private vec_statement ::= vec data_type { pin=1 }
-private record_statement ::= record '{' field_type_record_item* '}' { pin=1 }
-private variant_statement ::= variant '{' field_type_variant_item* '}' { pin=1 }
+private opt_statement ::= opt data_type { pin=1 name="opt"}
+private vec_statement ::= vec data_type { pin=1 name="vec"}
+private record_statement ::= record '{' <<list field_type_record ';'>> '}' { pin=1 name="record"}
+private variant_statement ::= variant '{' <<list field_type_variant ';'>> '}' { pin=1 name="variant"}
 
 private ref_type ::= func_statement | service_statement
-private func_statement ::= func func_type { pin=1 }
-private service_statement ::= service actor_type { pin=1 }
+private func_statement ::= func func_type { pin=1 name="func"}
+private service_statement ::= service actor_type { pin=1 name="service"}
 
-private nat_type ::= num | hex_0x
+private nat_type ::= num | hex_0x { name="number"}
 private num ::= digit('_'? digit)*
 private name ::= id | string_literal
-string_literal ::= '"'char*'"'
+string_literal ::= '"'char*'"' { name="string"}
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 
 identifier ::= id {
     implements="com.github.alaanor.candid.psi.primitive.CandidNamedElement"
     mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierMixin"
+    name="identifier"
 }
