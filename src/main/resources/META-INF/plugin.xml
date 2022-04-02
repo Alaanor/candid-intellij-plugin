@@ -12,12 +12,9 @@
                   fieldName="INSTANCE"
                   language="Candid"
                   extensions="did"/>
-        <lang.parserDefinition language="Candid"
-                               implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
-        <lang.syntaxHighlighterFactory language="Candid"
-                                       implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
+        <lang.parserDefinition language="Candid" implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Candid" implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
-        <lang.refactoringSupport language="Candid"
-                                 implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
+        <lang.refactoringSupport language="Candid" implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
     </extensions>
 </idea-plugin>

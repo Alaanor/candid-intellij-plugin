@@ -38,21 +38,33 @@ private meta list ::= <<list_item <<p>> <<s>>>>*
 
 // candid grammar
 
-private prog ::= def* actor?
-private def ::= type identifier '=' data_type (';' | !(type | service)) { pin=1 name="type" }
-private actor ::= service identifier? ':' (tup_type '->')? (actor_type | identifier) { pin=1 name="service" }
+private prog ::= definition* actor?
 
+// type
+
+definition ::= type identifier_declaration '=' data_type (';' | !(type | service)) {
+    implements="com.github.alaanor.candid.psi.primitive.CandidNameIdentifierOwner"
+    mixin="com.github.alaanor.candid.psi.mixin.CandidDefinitionMixin"
+    pin=1
+    name="type"
+}
+
+// actor
+
+private actor ::= service identifier_declaration? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
 private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
-private meth_type ::= name ':' (func_type | identifier)
+
+private meth_type ::= name ':' (func_type | identifier_reference)
 private func_type ::= tup_type '->' tup_type func_annotation*
 private func_annotation ::= oneway | query
 private tup_type ::= '(' <<list arg_type ",">>? ')' { pin=1 }
 private arg_type ::= data_type
+
 private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
 private field_type_record ::= field_type | data_type
 private field_type_variant ::= field_type | nat_type | name
 
-private data_type ::= identifier | comp_type | prim_type
+private data_type ::= identifier_reference  | comp_type | prim_type
 private comp_type ::= cons_type | ref_type
 private prim_type ::= num_type | bool | text | null | reserved | empty | principal
 private num_type ::= nat | nat8 | nat16 | nat32 | nat64
@@ -76,8 +88,8 @@ private name ::= id | string_literal
 string_literal ::= '"'char*'"' { name="string"}
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 
-identifier ::= id {
-    implements="com.github.alaanor.candid.psi.primitive.CandidNamedElement"
-    mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierMixin"
-    name="identifier"
+identifier_declaration ::= id { name="identifier" }
+identifier_reference ::= id {
+    mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierReferenceMixin"
+    name = "identifier"
 }
