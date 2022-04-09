@@ -9,6 +9,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import kotlin.math.min
 
+val BraceAfterInsertHandler = SmartInsertHandler(" {};", -2)
 val SpaceAfterInsertHandler = SmartInsertHandler(" ")
 
 class SmartInsertHandler(

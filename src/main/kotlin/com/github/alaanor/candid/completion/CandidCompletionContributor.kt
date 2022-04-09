@@ -17,25 +17,29 @@ class CandidCompletionContributor : CompletionContributor() {
         extend(
             CompletionType.BASIC,
             candidBasicCompletion.elementPattern,
-            candidBasicCompletion.completionProvider
+            KeywordsProvider(
+                candidBasicCompletion.tokenList,
+                candidBasicCompletion::keywordInsertHandle
+            )
         )
     }
 }
 
 abstract class CandidBasicCompletion {
     abstract val elementPattern: ElementPattern<out PsiElement>
-    abstract val completionProvider: CompletionProvider<CompletionParameters>
+    abstract val tokenList: List<String>
+    abstract fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement>
 }
 
 class KeywordsProvider(
     keywords: List<String>,
-    insertHandler: InsertHandler<LookupElement>?
+    insertHandler: (keyword: String) -> InsertHandler<LookupElement>,
 ) : CompletionProvider<CompletionParameters>() {
 
     private val keywordElements = keywords.map {
         LookupElementBuilder.create(it)
             .withTypeText("keyword")
-            .withInsertHandler(insertHandler)
+            .withInsertHandler(insertHandler(it))
     }
 
     override fun addCompletions(

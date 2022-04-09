@@ -1,8 +1,8 @@
 package com.github.alaanor.candid.completion
 
 import com.github.alaanor.candid.psi.CandidFile
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
+import com.intellij.codeInsight.completion.InsertHandler
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiElement
@@ -14,8 +14,9 @@ class TopLevelKeywordCompletion : CandidBasicCompletion() {
         .withParent(PsiErrorElement::class.java)
         .withSuperParent(2, CandidFile::class.java)
 
-    override val completionProvider: CompletionProvider<CompletionParameters> = KeywordsProvider(
-        listOf("type", "service"),
-        insertHandler = SpaceAfterInsertHandler
-    )
+    override val tokenList: List<String> = listOf("type", "service")
+
+    override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> {
+        return SpaceAfterInsertHandler
+    }
 }
