@@ -64,10 +64,10 @@ private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
 private field_type_record ::= field_type | data_type
 private field_type_variant ::= field_type | nat_type | name
 
-private data_type ::= identifier_reference  | comp_type | prim_type
+data_type ::= identifier_reference  | comp_type | prim_type
 private comp_type ::= cons_type | ref_type
-private prim_type ::= num_type | bool | text | null | reserved | empty | principal
-private num_type ::= nat | nat8 | nat16 | nat32 | nat64
+prim_type ::= num_type | bool | text | null | reserved | empty | principal
+num_type ::= nat | nat8 | nat16 | nat32 | nat64
     | int | int8 | int16 | int32 | int64
     | float32 | float64
 

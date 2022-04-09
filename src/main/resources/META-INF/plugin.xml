@@ -17,6 +17,7 @@
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
         <lang.refactoringSupport language="Candid" implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
         <lang.findUsagesProvider language="Candid" implementationClass="com.github.alaanor.candid.CandidFindUsageProvider" />
+        <completion.contributor language="Candid" implementationClass="com.github.alaanor.candid.CandidCompletionContributor" />
 
         <localInspection language="Candid" implementationClass="com.github.alaanor.candid.inspection.CandidUnusedTypeInspection"
             level="WARNING" displayName="Unused type" enabledByDefault="true" groupName="Candid inspections"/>

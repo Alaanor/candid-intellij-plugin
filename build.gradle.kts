@@ -153,5 +153,5 @@ tasks.create<Delete>("cleanGeneratedFiles") {
 }
 
 tasks.register<GradleBuild>("GenerateLexerParser") {
-    tasks = listOf("cleanGeneratedFiles", "generateLexer", "generateParser", "runIde")
+    tasks = listOf("cleanGeneratedFiles", "generateLexer", "generateParser")
 }
