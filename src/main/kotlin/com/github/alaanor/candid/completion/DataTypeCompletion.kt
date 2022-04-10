@@ -47,8 +47,10 @@ class DataTypeCompletion : CandidBasicCompletion() {
 
     override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> {
         return when (keyword) {
-            "service", "record", "variant" -> BraceAfterInsertHandler
-            else -> SpaceAfterInsertHandler
+            "record", "variant" -> BraceAfterInsertHandler
+            "vec", "opt", "service" -> SpaceAfterInsertHandler
+            "func" -> FuncParenAfterInsertHandler
+            else -> EmptyInsertHandler
         }
     }
 }
