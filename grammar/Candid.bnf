@@ -51,7 +51,7 @@ definition ::= type identifier_declaration '=' data_type (';' | !(type | service
 
 // actor
 
-private actor ::= service identifier_declaration? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
+actor ::= service identifier_declaration? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
 private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 
 private meth_type ::= name ':' (func_type | identifier_reference)
