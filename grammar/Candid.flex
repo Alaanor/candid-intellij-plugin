@@ -96,6 +96,7 @@ utf8enc = [\u0080-\u07ff]
   "service"         { return SERVICE; }
   "oneway"          { return ONEWAY; }
   "query"           { return QUERY; }
+  "blob"            { return BLOB; }
 
   ";"               { return SEMICOLON; }
   ","               { return COMMA; }

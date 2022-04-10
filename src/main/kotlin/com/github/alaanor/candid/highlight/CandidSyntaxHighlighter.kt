@@ -53,6 +53,9 @@ class CandidSyntaxHighlighter : SyntaxHighlighterBase() {
         put(CandidTypes.RECORD, CandidColor.KEYWORD)
         put(CandidTypes.VARIANT, CandidColor.KEYWORD)
         put(CandidTypes.SERVICE, CandidColor.KEYWORD)
+        put(CandidTypes.FUNC, CandidColor.KEYWORD)
+        put(CandidTypes.VEC, CandidColor.KEYWORD)
+        put(CandidTypes.BLOB, CandidColor.KEYWORD)
 
         put(CandidTypes.SEMICOLON, CandidColor.SEMICOLON)
         put(CandidTypes.LINE_COMMENT, CandidColor.LINE_COMMENT)

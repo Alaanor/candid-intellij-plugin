@@ -71,7 +71,7 @@ private num_type ::= nat | nat8 | nat16 | nat32 | nat64
     | int | int8 | int16 | int32 | int64
     | float32 | float64
 
-private cons_type ::= opt_statement | vec_statement | record_statement | variant_statement
+private cons_type ::= opt_statement | vec_statement | record_statement | variant_statement | blob
 
 private opt_statement ::= opt data_type { pin=1 name="opt"}
 private vec_statement ::= vec data_type { pin=1 name="vec"}
