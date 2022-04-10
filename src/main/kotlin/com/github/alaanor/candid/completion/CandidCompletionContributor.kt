@@ -11,6 +11,7 @@ class CandidCompletionContributor : CompletionContributor() {
     init {
         extendWithBasic(TopLevelKeywordCompletion())
         extendWithBasic(DataTypeCompletion())
+        extendWithBasic(VecOptTypeCompletion())
     }
 
     private fun extendWithBasic(candidBasicCompletion: CandidBasicCompletion) {
