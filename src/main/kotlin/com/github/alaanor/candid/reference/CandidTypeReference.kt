@@ -1,9 +1,9 @@
 package com.github.alaanor.candid.reference
 
+import com.github.alaanor.candid.psi.CandidElementFactory
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
 import com.github.alaanor.candid.psi.impl.CandidDefinitionImpl
-import com.github.alaanor.candid.psi.mixin.CandidDefinitionMixin
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -37,7 +37,8 @@ class CandidTypeReference : PsiReferenceBase<CandidIdentifierReference>, EmptyRe
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        TODO()
+        val newElement = CandidElementFactory.createTypeReference(element.project, newElementName)
+        return element.replace(newElement)
     }
 
 }
