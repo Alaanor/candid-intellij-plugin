@@ -43,15 +43,13 @@ private prog ::= definition* actor?
 // type
 
 definition ::= type identifier_declaration '=' data_type (';' | !(type | service)) {
-    implements="com.github.alaanor.candid.psi.primitive.CandidNameIdentifierOwner"
-    mixin="com.github.alaanor.candid.psi.mixin.CandidDefinitionMixin"
     pin=1
     name="type"
 }
 
 // actor
 
-actor ::= service identifier_declaration? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
+actor ::= service id? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
 private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 
 private meth_type ::= name ':' (func_type | identifier_reference)
@@ -88,7 +86,12 @@ private name ::= id | string_literal
 string_literal ::= '"'char*'"' { name="string"}
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 
-identifier_declaration ::= id { name="identifier" }
+identifier_declaration ::= id {
+    implements="com.github.alaanor.candid.psi.primitive.CandidNameIdentifierOwner"
+    mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierDeclarationMixin"
+    name="identifier"
+}
+
 identifier_reference ::= id {
     mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierReferenceMixin"
     name = "identifier"

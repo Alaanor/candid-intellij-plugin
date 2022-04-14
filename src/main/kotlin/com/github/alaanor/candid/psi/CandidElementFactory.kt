@@ -6,8 +6,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFileFactory
 
 object CandidElementFactory {
-    fun createDefinition(project: Project, name: String): PsiElement {
-        return createDummyFile(project, name).firstChild
+    fun createTypeDeclaration(project: Project, name: String): PsiElement {
+        return createDummyFile(project, "type $name = foo").firstChild.children[0]
     }
 
     fun createTypeReference(project: Project, name: String): PsiElement {
