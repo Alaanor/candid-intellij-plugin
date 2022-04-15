@@ -28,8 +28,6 @@ class CandidSyntaxHighlighter : SyntaxHighlighterBase() {
         put(CandidTypes.HEX_ESCAPE_SHORT, CandidColor.ESCAPE)
         put(CandidTypes.HEX_ESCAPE_LONG, CandidColor.ESCAPE)
 
-        put(CandidTypes.ID, CandidColor.IDENTIFIER)
-
         put(CandidTypes.NAT, CandidColor.KEYWORD)
         put(CandidTypes.NAT8, CandidColor.KEYWORD)
         put(CandidTypes.NAT16, CandidColor.KEYWORD)

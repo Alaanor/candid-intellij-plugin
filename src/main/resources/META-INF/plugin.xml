@@ -21,5 +21,7 @@
 
         <localInspection language="Candid" implementationClass="com.github.alaanor.candid.inspection.CandidUnusedTypeInspection"
             level="WARNING" displayName="Unused type" enabledByDefault="true" groupName="Candid inspections"/>
+
+        <annotator language="Candid" implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator" />
     </extensions>
 </idea-plugin>
