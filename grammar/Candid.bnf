@@ -85,7 +85,10 @@ private service_statement ::= service actor_type { pin=1 name="service" }
 private nat_type ::= num | hex_0x { name="number" }
 private num ::= digit('_'? digit)*
 private name ::= id | string_literal
-string_literal ::= '"'char*'"' { name="string" }
+string_literal ::= '"'char*'"' {
+    mixin="com.github.alaanor.candid.psi.mixin.CandidStringLiteralMixin"
+    name="string"
+}
 private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 
 identifier_declaration ::= id {
