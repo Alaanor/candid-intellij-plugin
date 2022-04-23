@@ -10,11 +10,12 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.refactoring.suggested.startOffset
 import com.intellij.util.indexing.FileBasedIndex
 import org.intellij.markdown.flavours.gfm.table.GitHubTableMarkerProvider.Companion.contains
 import java.nio.file.Paths
 
-class CandidImportReference(importStatement: CandidImportStatement, textRange: TextRange) :
+class CandidImportReference(importStatement: CandidImportStatement, private var textRange: TextRange) :
     PsiReferenceBase<CandidImportStatement>(importStatement, textRange) {
 
     private val targetName: String get() = element.stringLiteral!!.text.trim('"')
@@ -28,6 +29,12 @@ class CandidImportReference(importStatement: CandidImportStatement, textRange: T
         return target?.let { PsiManager.getInstance(element.project).findFile(it) }
     }
 
+    override fun getAbsoluteRange(): TextRange = textRange
+    override fun getRangeInElement(): TextRange {
+        return element.stringLiteral!!.textRange
+            .shiftLeft(element.startOffset)
+    }
+
     override fun getVariants(): Array<Any> {
         val files = FileBasedIndex.getInstance().getContainingFiles(
             FileTypeIndex.NAME,
@@ -36,7 +43,11 @@ class CandidImportReference(importStatement: CandidImportStatement, textRange: T
         )
 
         val currentPath = Paths.get(element.containingFile.originalFile.virtualFile.parent.path)
-        return files.map { file ->
+        return files.mapNotNull { file ->
+            if (file.canonicalPath == element.containingFile.originalFile.virtualFile.canonicalPath) {
+                return@mapNotNull null
+            }
+
             val relativePath = currentPath.relativize(Paths.get(file.path))
             val contextText = if (relativePath.toString().contains('/')) "($relativePath)" else ""
             LookupElementBuilder.create(relativePath)
@@ -49,7 +60,7 @@ class CandidImportReference(importStatement: CandidImportStatement, textRange: T
                         context.editor.caretModel.offset,
                         context.editor.document.text.indexOf('"', context.editor.caretModel.offset),
                         ""
-                    );
+                    )
                 }
         }.toTypedArray()
     }
