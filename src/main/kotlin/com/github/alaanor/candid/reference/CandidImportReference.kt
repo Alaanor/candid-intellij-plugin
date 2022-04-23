@@ -54,7 +54,6 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
                 .withPresentableText(file.name)
                 .withTypeText(contextText)
                 .withIcon(AllIcons.FileTypes.Any_type)
-                .withCaseSensitivity(false)
                 .withInsertHandler { context, _ ->
                     context.document.replaceString(
                         context.editor.caretModel.offset,
