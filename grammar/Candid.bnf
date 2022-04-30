@@ -94,6 +94,7 @@ private char ::= ascii | utf8enc | hex_escape_short | hex_escape_long | escape
 identifier_declaration ::= id {
     implements="com.github.alaanor.candid.psi.primitive.CandidNameIdentifierOwner"
     mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierDeclarationMixin"
+    stubClass="com.github.alaanor.candid.psi.stub.impl.CandidIdentifierDeclarationStub"
     name="identifier"
 }
 
