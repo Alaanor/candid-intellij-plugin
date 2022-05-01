@@ -25,6 +25,6 @@
         <annotator language="Candid" implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator" />
 
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes" />
-        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidTypeIndex" />
+        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex" />
     </extensions>
 </idea-plugin>

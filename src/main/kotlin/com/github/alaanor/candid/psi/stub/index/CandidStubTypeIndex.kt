@@ -4,7 +4,7 @@ import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.intellij.psi.stubs.StringStubIndexExtension
 import com.intellij.psi.stubs.StubIndexKey
 
-class CandidTypeIndex : StringStubIndexExtension<CandidIdentifierDeclaration>() {
+class CandidStubTypeIndex : StringStubIndexExtension<CandidIdentifierDeclaration>() {
     companion object {
         val Key = StubIndexKey.createIndexKey<String, CandidIdentifierDeclaration>("candid.type.name")
     }

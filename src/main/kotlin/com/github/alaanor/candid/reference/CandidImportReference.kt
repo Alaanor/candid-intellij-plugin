@@ -2,6 +2,7 @@ package com.github.alaanor.candid.reference
 
 import com.github.alaanor.candid.CandidFileType
 import com.github.alaanor.candid.psi.CandidImportStatement
+import com.github.alaanor.candid.util.CandidImportUtil
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.TextRange
@@ -25,8 +26,7 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
             return null
         }
 
-        val target = element.containingFile.virtualFile.findFileByRelativePath("../${this.targetName}")
-        return target?.let { PsiManager.getInstance(element.project).findFile(it) }
+        return CandidImportUtil.resolveRelatively(element.containingFile, this.targetName)
     }
 
     override fun getAbsoluteRange(): TextRange = textRange
