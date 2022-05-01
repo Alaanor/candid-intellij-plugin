@@ -1,6 +1,7 @@
 package com.github.alaanor.candid
 
 import com.github.alaanor.candid.psi.CandidFile
+import com.github.alaanor.candid.psi.stub.CandidFileStub
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.PsiParser
@@ -15,10 +16,6 @@ import com.intellij.psi.tree.TokenSet
 
 class CandidParserDefinition : ParserDefinition {
 
-    companion object {
-        val FILE = IFileElementType(CandidLanguage.INSTANCE)
-    }
-
     override fun createLexer(project: Project?): Lexer {
         return CandidLexerAdapter()
     }
@@ -28,7 +25,7 @@ class CandidParserDefinition : ParserDefinition {
     }
 
     override fun getFileNodeType(): IFileElementType {
-        return FILE
+        return CandidFileStub.Type
     }
 
     override fun getCommentTokens(): TokenSet {

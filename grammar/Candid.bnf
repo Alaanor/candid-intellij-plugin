@@ -95,6 +95,7 @@ identifier_declaration ::= id {
     implements="com.github.alaanor.candid.psi.primitive.CandidNameIdentifierOwner"
     mixin="com.github.alaanor.candid.psi.mixin.CandidIdentifierDeclarationMixin"
     stubClass="com.github.alaanor.candid.psi.stub.impl.CandidIdentifierDeclarationStub"
+    elementTypeFactory="com.github.alaanor.candid.psi.stub.type.CandidStubTypes.get"
     name="identifier"
 }
 
