@@ -3,6 +3,7 @@ package com.github.alaanor.candid.inspection
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
 import com.github.alaanor.candid.psi.impl.CandidActorImpl
+import com.github.alaanor.candid.util.CandidImportUtil
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.searches.ReferencesSearch
@@ -16,8 +17,19 @@ class CandidUnusedTypeInspection : LocalInspectionTool() {
         val references = PsiTreeUtil.findChildrenOfType(file, CandidIdentifierReference::class.java)
 
         declarations.forEach { declaration ->
-            val found = references.find { declaration.text == it.text }
-            if (found == null) {
+            // local first
+            var found = references.find { declaration.text == it.text } != null
+
+            // then global
+            if (!found) {
+                CandidImportUtil.getAllImportedFileFor(file).forEach global@{ importedFile ->
+                    found = PsiTreeUtil.findChildrenOfType(importedFile, CandidIdentifierReference::class.java)
+                        .find { declaration.text == it.text } != null
+                    if (found) return@global
+                }
+            }
+
+            if (found) {
                 problemsHolder.registerProblem(
                     declaration.originalElement,
                     "Unused type",

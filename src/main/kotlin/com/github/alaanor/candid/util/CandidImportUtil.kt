@@ -7,7 +7,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.containers.addIfNotNull
 
 object CandidImportUtil {
-    fun getAllImportedFileFor(psiFile: PsiFile, recursively: Boolean): List<PsiFile> {
+    fun getAllImportedFileFor(psiFile: PsiFile, recursively: Boolean = true): List<PsiFile> {
         val targetFiles = mutableListOf<PsiFile>()
         PsiTreeUtil.findChildrenOfType(psiFile, CandidImportStatement::class.java).forEach { importStatement ->
             val importPath = importStatement.stringLiteral!!.text.trim('"')
