@@ -1,5 +1,6 @@
 package com.github.alaanor.candid
 
+import com.github.alaanor.candid.icon.CandidIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
 import javax.swing.Icon
 
@@ -20,7 +21,7 @@ class CandidFileType private constructor() : LanguageFileType(CandidLanguage.INS
         return "did"
     }
 
-    override fun getIcon(): Icon? {
-        return null
+    override fun getIcon(): Icon {
+        return CandidIcons.FileType
     }
 }

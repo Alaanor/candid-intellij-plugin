@@ -1,6 +1,7 @@
 package com.github.alaanor.candid.reference
 
 import com.github.alaanor.candid.CandidFileType
+import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidImportStatement
 import com.github.alaanor.candid.util.CandidImportUtil
 import com.intellij.codeInsight.lookup.LookupElementBuilder
@@ -53,7 +54,7 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
             LookupElementBuilder.create(relativePath)
                 .withPresentableText(file.name)
                 .withTypeText(contextText)
-                .withIcon(AllIcons.FileTypes.Any_type)
+                .withIcon(CandidIcons.FileType)
                 .withInsertHandler { context, _ ->
                     context.document.replaceString(
                         context.editor.caretModel.offset,

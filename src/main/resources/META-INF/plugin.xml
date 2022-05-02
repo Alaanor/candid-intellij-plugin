@@ -36,6 +36,8 @@
         <annotator language="Candid"
                    implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>
 
+        <iconProvider implementation="com.github.alaanor.candid.icon.CandidIconProvider"/>
+
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
     </extensions>
