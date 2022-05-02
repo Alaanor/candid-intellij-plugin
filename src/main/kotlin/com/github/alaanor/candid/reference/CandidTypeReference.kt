@@ -32,6 +32,7 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
                         && resolve(this.element) == element
             }
         }
+
         return false
     }
 

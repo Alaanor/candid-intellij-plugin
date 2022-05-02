@@ -12,19 +12,31 @@
                   fieldName="INSTANCE"
                   language="Candid"
                   extensions="did"/>
-        <lang.parserDefinition language="Candid" implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
-        <lang.syntaxHighlighterFactory language="Candid" implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
+        <lang.parserDefinition language="Candid"
+                               implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Candid"
+                                       implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
-        <lang.refactoringSupport language="Candid" implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
-        <lang.findUsagesProvider language="Candid" implementationClass="com.github.alaanor.candid.CandidFindUsageProvider" />
-        <completion.contributor language="Candid" implementationClass="com.github.alaanor.candid.completion.CandidCompletionContributor" />
+        <lang.refactoringSupport language="Candid"
+                                 implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
+        <lang.findUsagesProvider language="Candid"
+                                 implementationClass="com.github.alaanor.candid.CandidFindUsageProvider"/>
+        <completion.contributor language="Candid"
+                                implementationClass="com.github.alaanor.candid.completion.CandidCompletionContributor"/>
 
-        <localInspection language="Candid" implementationClass="com.github.alaanor.candid.inspection.CandidUnusedTypeInspection"
-            level="WARNING" displayName="Unused type" enabledByDefault="true" groupName="Candid inspections"/>
+        <localInspection language="Candid"
+                         implementationClass="com.github.alaanor.candid.inspection.CandidUnusedTypeInspection"
+                         level="WARNING" displayName="Unused type" enabledByDefault="true"
+                         groupName="Candid inspections"/>
+        <localInspection language="Candid"
+                         implementationClass="com.github.alaanor.candid.inspection.CandidUnresolvedReferenceInspection"
+                         level="ERROR" displayName="Unresolved reference" enabledByDefault="true"
+                         groupName="Candid inspections"/>
 
-        <annotator language="Candid" implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator" />
+        <annotator language="Candid"
+                   implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>
 
-        <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes" />
-        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex" />
+        <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
+        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
     </extensions>
 </idea-plugin>
