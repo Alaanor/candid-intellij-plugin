@@ -6,6 +6,7 @@ import com.github.alaanor.candid.psi.impl.CandidActorImpl
 import com.github.alaanor.candid.util.CandidImportUtil
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.searches.ReferencesSearch
 import com.intellij.psi.util.PsiTreeUtil
 
@@ -22,14 +23,13 @@ class CandidUnusedTypeInspection : LocalInspectionTool() {
 
             // then global
             if (!found) {
-                CandidImportUtil.getAllImportedFileFor(file).forEach global@{ importedFile ->
-                    found = PsiTreeUtil.findChildrenOfType(importedFile, CandidIdentifierReference::class.java)
-                        .find { declaration.text == it.text } != null
-                    if (found) return@global
-                }
+                val occurrences = ReferencesSearch.search(declaration, GlobalSearchScope.projectScope(file.project))
+
+                @Suppress("ReplaceSizeCheckWithIsNotEmpty")
+                found = occurrences.count() > 0
             }
 
-            if (found) {
+            if (!found) {
                 problemsHolder.registerProblem(
                     declaration.originalElement,
                     "Unused type",

@@ -22,28 +22,15 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
     override fun getUnresolvedMessagePattern(): String = "Unresolved type"
 
     override fun resolve(): PsiElement? {
-        // local first
-        PsiTreeUtil
-            .findChildrenOfType(element.containingFile, CandidIdentifierDeclaration::class.java)
-            .find { element.text == it.text }
-            ?.let { return it }
-
-        // search further
-        val files = CandidImportUtil.getAllImportedFileFor(element.containingFile, true)
-        files.forEach { file ->
-            PsiTreeUtil
-                .findChildrenOfType(file, CandidIdentifierDeclaration::class.java)
-                .find { element.text == it.text }
-                ?.let { return it }
-        }
-
-        return null
+        return resolve(this.element)
     }
 
     override fun isReferenceTo(element: PsiElement): Boolean {
         when (element) {
-            is CandidIdentifierDeclaration -> if (element.nameIdentifier?.text == this.element.text)
-                return true
+            is CandidIdentifierDeclaration -> {
+                return element.nameIdentifier?.text == this.element.text
+                        && resolve(this.element) == element
+            }
         }
         return false
     }
@@ -61,4 +48,22 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
         }.toTypedArray()
     }
 
+    private fun resolve(element: PsiElement): PsiElement? {
+        // local first
+        PsiTreeUtil
+            .findChildrenOfType(element.containingFile, CandidIdentifierDeclaration::class.java)
+            .find { element.text == it.text }
+            ?.let { return it }
+
+        // search further
+        val files = CandidImportUtil.getAllImportedFileFor(element.containingFile, true)
+        files.forEach { file ->
+            PsiTreeUtil
+                .findChildrenOfType(file, CandidIdentifierDeclaration::class.java)
+                .find { element.text == it.text }
+                ?.let { return it }
+        }
+
+        return null
+    }
 }
