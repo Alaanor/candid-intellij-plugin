@@ -69,6 +69,10 @@ jobs:
 
           ./gradlew listProductsReleases # prepare list of IDEs for Plugin Verifier
 
+      # Generate src/main/gen/ from bnf/flex files
+      - name: Generate files from grammar
+        run: ./gradlew GenerateLexerParser
+
       # Run tests
       - name: Run Tests
         run: ./gradlew test
