@@ -7,7 +7,7 @@ import javax.swing.Icon
 
 class CandidIconProvider : IconProvider() {
     override fun getIcon(element: PsiElement, flags: Int): Icon? {
-        if (element.containingFile.fileType !is CandidFileType) {
+        if (element.containingFile?.fileType !is CandidFileType) {
             return null
         }
 
