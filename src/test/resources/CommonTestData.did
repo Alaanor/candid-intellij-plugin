@@ -1,21 +1,22 @@
-type Age = nat;
-type User = record {
-    age: Age;
+type http_header = record {
     name: text;
-    "description": opt text;
+    value: text
 };
 
-type UserLookupResult = variant {
-    Ok: User;
-    Err: variant {
-        NotFound: null;
-        Other: record {
-            error_code: nat;
-        };
-    };
+type http_response = record {
+  status: nat;
+  headers: vec http_header;
+  body: blob;
 };
 
 service: {
-    insert: (Age, text) -> ();
-    lookup: (text) -> (UserLookupResult) query;
+    http_request : (record {
+        url : text;
+        method : variant { get };
+        headers: vec http_header;
+        body : opt blob;
+        transform : opt variant {
+            function: func (http_response) -> (http_response) query
+        };
+    }) -> (http_response)
 }
