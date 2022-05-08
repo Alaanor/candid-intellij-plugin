@@ -7,7 +7,7 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Candid file"
+        <fileType name="Candid"
                   implementationClass="com.github.alaanor.candid.CandidFileType"
                   fieldName="INSTANCE"
                   language="Candid"
@@ -23,6 +23,13 @@
                                  implementationClass="com.github.alaanor.candid.CandidFindUsageProvider"/>
         <completion.contributor language="Candid"
                                 implementationClass="com.github.alaanor.candid.completion.CandidCompletionContributor"/>
+
+        <lang.formatter language="Candid"
+                        implementationClass="com.github.alaanor.candid.formatter.CandidFormattingModelBuilder"/>
+        <codeStyleSettingsProvider
+                implementation="com.github.alaanor.candid.formatter.CandidCodeStyleSettingsProvider"/>
+        <langCodeStyleSettingsProvider
+                implementation="com.github.alaanor.candid.formatter.CandidLanguageCodeStyleSettingsProvider"/>
 
         <localInspection language="Candid"
                          implementationClass="com.github.alaanor.candid.inspection.CandidUnusedTypeInspection"

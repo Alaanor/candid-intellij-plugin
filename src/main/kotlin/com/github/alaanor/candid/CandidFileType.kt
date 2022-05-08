@@ -10,7 +10,7 @@ class CandidFileType private constructor() : LanguageFileType(CandidLanguage.INS
     }
 
     override fun getName(): String {
-        return "Candid file"
+        return "Candid"
     }
 
     override fun getDescription(): String {

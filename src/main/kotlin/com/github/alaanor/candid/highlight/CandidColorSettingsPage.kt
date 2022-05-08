@@ -19,11 +19,15 @@ class CandidColorSettingsPage : ColorSettingsPage {
 
     override fun getDemoText(): String =
         """
+import "foo/bar.did";
+
 type Name = text;
+
 type Entry = record {
     person: Name;
     "age": nat;
 };
+
 service: {
     insert: (Name, nat) -> ();
     lookup: (Name) -> (opt Entry) query;
