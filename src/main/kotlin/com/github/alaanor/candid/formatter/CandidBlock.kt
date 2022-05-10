@@ -1,6 +1,8 @@
 package com.github.alaanor.candid.formatter
 
 import com.github.alaanor.candid.CandidTypes
+import com.github.alaanor.candid.psi.CandidFile
+import com.github.alaanor.candid.psi.stub.CandidFileStub
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType
@@ -33,13 +35,29 @@ class CandidBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val
         }
     }
 
+    override fun getChildAttributes(newChildIndex: Int): ChildAttributes {
+        return when (node.elementType) {
+            CandidTypes.RECORD_STATEMENT,
+            CandidTypes.VARIANT_STATEMENT -> {
+                ChildAttributes(Indent.getNormalIndent(), null)
+            }
+
+            else -> {
+                ChildAttributes(Indent.getNoneIndent(), null)
+            }
+        }
+    }
+
     override fun getIndent(): Indent? {
         return when (node.elementType) {
-            CandidTypes.RECORD_BODY,
-            CandidTypes.VARIANT_BODY -> {
+            CandidTypes.FIELD_TYPE_RECORD,
+            CandidTypes.FIELD_TYPE_VARIANT -> {
                 Indent.getNormalIndent()
             }
-            else -> Indent.getNoneIndent()
+
+            else -> {
+                Indent.getNoneIndent()
+            }
         }
     }
 }

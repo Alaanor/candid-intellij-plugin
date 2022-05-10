@@ -61,8 +61,8 @@ tup_type ::= '(' <<list tup_arg_type ",">>? ')' { pin=1 }
 private  tup_arg_type ::= data_type | name ':' data_type
 
 private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
-private field_type_record ::= field_type | data_type
-private field_type_variant ::= field_type | nat_type | name
+field_type_record ::= field_type | data_type
+field_type_variant ::= field_type | nat_type | name
 
 data_type ::= identifier_reference  | comp_type | prim_type
 private comp_type ::= cons_type | ref_type
@@ -75,11 +75,8 @@ private cons_type ::= opt_statement | vec_statement | record_statement | variant
 
 private opt_statement ::= opt data_type { pin=1 name="opt" }
 private vec_statement ::= vec data_type { pin=1 name="vec" }
-record_statement ::= record '{' record_body '}' { pin=1 name="record" }
-variant_statement ::= variant '{' variant_body '}' { pin=1 name="variant" }
-
-record_body ::= <<list field_type_record ';'>>
-variant_body ::= <<list field_type_variant ';'>>
+record_statement ::= record '{' <<list field_type_record ';'>> '}' { pin=1 name="record" }
+variant_statement ::= variant '{' <<list field_type_variant ';'>> '}' { pin=1 name="variant" }
 
 private ref_type ::= func_statement | service_statement
 private func_statement ::= func func_type { pin=1 name="func" }
