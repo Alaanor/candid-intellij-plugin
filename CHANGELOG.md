@@ -4,4 +4,8 @@
 
 ## [Unreleased]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- 💡 Syntax Highlighting
+- ⌨️ Auto Completion
+- 🔍 Find Usage
+- 💄 Code Format
+- ⚡ Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
