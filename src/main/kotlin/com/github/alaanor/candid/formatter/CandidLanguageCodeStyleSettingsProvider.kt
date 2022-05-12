@@ -5,6 +5,7 @@ import com.intellij.application.options.IndentOptionsEditor
 import com.intellij.application.options.SmartIndentOptionsEditor
 import com.intellij.lang.Language
 import com.intellij.psi.codeStyle.*
+import org.intellij.lang.annotations.Language as inject
 
 class CandidLanguageCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvider() {
     override fun getLanguage(): Language = CandidLanguage.INSTANCE
@@ -66,6 +67,31 @@ class CandidLanguageCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvide
                 )
             }
 
+            SettingsType.WRAPPING_AND_BRACES_SETTINGS -> {
+                consumer.showCustomOption(
+                    CandidCodeStyleSettings::class.java,
+                    CandidCodeStyleSettings::NEW_LINE_FIELDS.name,
+                    "New line in fields",
+                    null
+                )
+            }
+
+            SettingsType.BLANK_LINES_SETTINGS -> {
+                consumer.showCustomOption(
+                    CandidCodeStyleSettings::class.java,
+                    CandidCodeStyleSettings::BLANK_LINE_AROUND_DEFINITION.name,
+                    "Definition",
+                    CodeStyleSettingsCustomizableOptions.getInstance().BLANK_LINES
+                )
+
+                consumer.showCustomOption(
+                    CandidCodeStyleSettings::class.java,
+                    CandidCodeStyleSettings::BLANK_LINE_AROUND_IMPORT.name,
+                    "Import",
+                    CodeStyleSettingsCustomizableOptions.getInstance().BLANK_LINES
+                )
+            }
+
             else -> {}
         }
     }
@@ -78,12 +104,13 @@ class CandidLanguageCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvide
         commonSettings.SPACE_WITHIN_BRACES = true
     }
 
-    override fun getCodeSample(settingsType: SettingsType): String? {
-        return """
+    override fun getCodeSample(settingsType: SettingsType): String {
+        return sample(
+            """
 import "foo/bar.did";
+import "foo/baz.did";
 
 type Name = text;
-
 type Entry = record {
     person: Name; // some comment
     get_details: func () -> (EntryDetails) query;
@@ -96,14 +123,16 @@ type EntryDetails = record {
     "age": nat;
     description: opt text;
 };
-
 type LookupResult = variant { Ok: Entry; Err; }
 
 service: {
     insert: (Name, nat) -> ();
     lookup: (Name) -> (LookupResult) query;
 } 
-        """.trim()
+        """
+        )
     }
 
 }
+
+private fun sample(@inject("Candid") code: String) = code.trim()

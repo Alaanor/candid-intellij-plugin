@@ -4,9 +4,9 @@ type http_header = record {
 };
 
 type http_response = record {
-  status: nat;
-  headers: vec http_header;
-  body: blob;
+    status: nat;
+    headers: vec http_header;
+    body: blob;
 };
 
 service: {
