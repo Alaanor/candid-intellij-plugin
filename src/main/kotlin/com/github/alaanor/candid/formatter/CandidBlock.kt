@@ -1,8 +1,6 @@
 package com.github.alaanor.candid.formatter
 
 import com.github.alaanor.candid.CandidTypes
-import com.github.alaanor.candid.psi.CandidFile
-import com.github.alaanor.candid.psi.stub.CandidFileStub
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType

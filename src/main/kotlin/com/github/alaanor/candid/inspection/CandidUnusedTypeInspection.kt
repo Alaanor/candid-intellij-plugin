@@ -3,7 +3,6 @@ package com.github.alaanor.candid.inspection
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
 import com.github.alaanor.candid.psi.impl.CandidActorImpl
-import com.github.alaanor.candid.util.CandidImportUtil
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope

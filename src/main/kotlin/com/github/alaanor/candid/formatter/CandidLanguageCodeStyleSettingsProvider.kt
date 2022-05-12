@@ -4,7 +4,10 @@ import com.github.alaanor.candid.CandidLanguage
 import com.intellij.application.options.IndentOptionsEditor
 import com.intellij.application.options.SmartIndentOptionsEditor
 import com.intellij.lang.Language
-import com.intellij.psi.codeStyle.*
+import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable
+import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizableOptions
+import com.intellij.psi.codeStyle.CommonCodeStyleSettings
+import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider
 import org.intellij.lang.annotations.Language as inject
 
 class CandidLanguageCodeStyleSettingsProvider : LanguageCodeStyleSettingsProvider() {

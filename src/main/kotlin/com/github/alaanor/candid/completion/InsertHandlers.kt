@@ -7,7 +7,6 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorModificationUtil
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
-import kotlin.math.max
 import kotlin.math.min
 
 val BraceAfterInsertHandler = SmartInsertHandler(" {}", -1, '{')
