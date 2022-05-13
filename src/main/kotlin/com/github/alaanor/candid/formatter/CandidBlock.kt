@@ -37,7 +37,9 @@ class CandidBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, private val
         return when (node.elementType) {
             CandidTypes.FIELD_TYPE_RECORD,
             CandidTypes.FIELD_TYPE_VARIANT,
-            CandidTypes.METH_TYPE -> {
+            CandidTypes.METH_TYPE,
+            CandidTypes.BLOCK_COMMENT,
+            CandidTypes.LINE_COMMENT -> {
                 Indent.getNormalIndent()
             }
 
