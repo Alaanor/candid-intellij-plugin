@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+
+## [0.0.2]
 ### Fixed
 - Fixed some CI pipeline
 - Remove usage of internal API
