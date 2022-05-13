@@ -1,6 +1,8 @@
 package com.github.alaanor.candid.completion
 
 import com.github.alaanor.candid.psi.impl.CandidDataTypeImpl
+import com.github.alaanor.candid.psi.impl.CandidFieldTypeRecordImpl
+import com.github.alaanor.candid.psi.impl.CandidFieldTypeVariantImpl
 import com.github.alaanor.candid.psi.impl.CandidRecordStatementImpl
 import com.github.alaanor.candid.psi.impl.CandidTupTypeImpl
 import com.github.alaanor.candid.psi.impl.CandidVariantStatementImpl
@@ -18,8 +20,12 @@ val sharedDataTypeElementPattern = psiElement().andOr(
         .afterLeaf(":")
         .withSuperParent(2, CandidDataTypeImpl::class.java)
         .andOr(
-            psiElement().withSuperParent(3, CandidRecordStatementImpl::class.java),
-            psiElement().withSuperParent(3, CandidVariantStatementImpl::class.java),
+            psiElement()
+                .withSuperParent(3, CandidFieldTypeRecordImpl::class.java)
+                .withSuperParent(4, CandidRecordStatementImpl::class.java),
+            psiElement()
+                .withSuperParent(3, CandidFieldTypeVariantImpl::class.java)
+                .withSuperParent(4, CandidVariantStatementImpl::class.java),
         ),
     psiElement()
         .withSuperParent(2, CandidDataTypeImpl::class.java)
@@ -42,7 +48,8 @@ class DataTypeCompletion : CandidBasicCompletion() {
         "int", "int8", "int16", "int32", "int64",
         "float32", "float64", "bool", "text",
         "null", "reserved", "empty", "principal",
-        "record", "variant", "func", "service"
+        "record", "variant", "func", "service",
+        "blob"
     )
 
     override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> {
