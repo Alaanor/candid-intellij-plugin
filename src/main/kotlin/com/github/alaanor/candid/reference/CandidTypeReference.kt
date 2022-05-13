@@ -3,14 +3,19 @@ package com.github.alaanor.candid.reference
 import com.github.alaanor.candid.psi.CandidElementFactory
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
+import com.github.alaanor.candid.psi.stub.impl.CandidIdentifierDeclarationStub
 import com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex
 import com.github.alaanor.candid.util.CandidImportUtil
+import com.github.alaanor.candid.util.filePath
+import com.github.alaanor.candid.util.filePathDirectory
+import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.StubIndex
 import com.intellij.psi.util.PsiTreeUtil
 
@@ -42,11 +47,23 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
     }
 
     override fun getVariants(): Array<Any> {
-        return StubIndex.getInstance().getAllKeys(CandidStubTypeIndex.Key, element.project).mapNotNull {
-            LookupElementBuilder.create(it)
-                .withTypeText("type")
-                .withIcon(AllIcons.Nodes.Type)
-        }.toTypedArray()
+        val currentFilePath = element.filePath()
+        return StubIndex.getInstance().getAllKeys(CandidStubTypeIndex.Key, element.project)
+            .flatMap {
+                StubIndex.getElements(
+                    CandidStubTypeIndex.Key,
+                    it,
+                    element.project,
+                    GlobalSearchScope.projectScope(element.project),
+                    CandidIdentifierDeclaration::class.java
+                )
+            }
+            .mapNotNull {
+                val samePath = it.filePath() == currentFilePath
+                LookupElementBuilder.create(it)
+                    .withTypeText(if (samePath) "type" else "(${element.getRelativePath(it)}) type")
+                    .withIcon(AllIcons.Nodes.Type)
+            }.toTypedArray()
     }
 
     private fun resolve(element: PsiElement): PsiElement? {

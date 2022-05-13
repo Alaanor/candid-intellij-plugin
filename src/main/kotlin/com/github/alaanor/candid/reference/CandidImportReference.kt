@@ -4,6 +4,8 @@ import com.github.alaanor.candid.CandidFileType
 import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidImportStatement
 import com.github.alaanor.candid.util.CandidImportUtil
+import com.github.alaanor.candid.util.filePath
+import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -12,7 +14,6 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.refactoring.suggested.startOffset
 import org.intellij.markdown.flavours.gfm.table.GitHubTableMarkerProvider.Companion.contains
-import java.nio.file.Paths
 
 class CandidImportReference(importStatement: CandidImportStatement, private var textRange: TextRange) :
     PsiReferenceBase<CandidImportStatement>(importStatement, textRange) {
@@ -35,14 +36,13 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
 
     override fun getVariants(): Array<Any> {
         val files = FileTypeIndex.getFiles(CandidFileType.INSTANCE, GlobalSearchScope.projectScope(element.project))
-        val currentPath = Paths.get(element.containingFile.originalFile.virtualFile.parent.path)
         return files.mapNotNull { file ->
-            if (file.canonicalPath == element.containingFile.originalFile.virtualFile.canonicalPath) {
+            if (file.path == element.filePath()) {
                 return@mapNotNull null
             }
 
-            val relativePath = currentPath.relativize(Paths.get(file.path))
-            val contextText = if (relativePath.toString().contains('/')) "($relativePath)" else ""
+            val relativePath = element.getRelativePath(file)
+            val contextText = if (relativePath.contains('/')) "($relativePath)" else ""
             LookupElementBuilder.create(relativePath)
                 .withPresentableText(file.name)
                 .withTypeText(contextText)
