@@ -3,6 +3,11 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+### Added
+- Show all types and their path in the completion menu
+
+### Fixed
+- Fixed keyword autocompletion in variant and record
 
 ## [0.0.2]
 ### Fixed
