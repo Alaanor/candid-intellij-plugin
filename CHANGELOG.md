@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 ### Added
+- Paired bracket and parenthesis
+- Quote handler
+
+## [0.1.0]
+### Added
 - Show all types and their path in the completion menu
 - Auto insert import when using a type outside the current file
 - Added "Candid File" to File > New menu
