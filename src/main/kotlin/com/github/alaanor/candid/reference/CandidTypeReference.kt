@@ -1,5 +1,6 @@
 package com.github.alaanor.candid.reference
 
+import com.github.alaanor.candid.completion.AddImportInsertHandler
 import com.github.alaanor.candid.psi.CandidElementFactory
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
@@ -62,6 +63,7 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
                 val samePath = it.filePath() == currentFilePath
                 LookupElementBuilder.create(it)
                     .withTypeText(if (samePath) "type" else "(${element.getRelativePath(it)}) type")
+                    .withInsertHandler(AddImportInsertHandler(it))
                     .withIcon(AllIcons.Nodes.Type)
             }.toTypedArray()
     }

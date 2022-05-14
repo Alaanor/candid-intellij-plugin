@@ -3,6 +3,7 @@ package com.github.alaanor.candid.reference
 import com.github.alaanor.candid.CandidFileType
 import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidImportStatement
+import com.github.alaanor.candid.psi.importPathString
 import com.github.alaanor.candid.util.CandidImportUtil
 import com.github.alaanor.candid.util.filePath
 import com.github.alaanor.candid.util.getRelativePath
@@ -18,14 +19,13 @@ import org.intellij.markdown.flavours.gfm.table.GitHubTableMarkerProvider.Compan
 class CandidImportReference(importStatement: CandidImportStatement, private var textRange: TextRange) :
     PsiReferenceBase<CandidImportStatement>(importStatement, textRange) {
 
-    private val targetName: String get() = element.stringLiteral!!.text.trim('"')
-
     override fun resolve(): PsiElement? {
-        if (element.stringLiteral == null) {
+        val importPath = element.importPathString()
+        if (element.stringLiteral == null || importPath == null) {
             return null
         }
 
-        return CandidImportUtil.resolveRelatively(element.containingFile, this.targetName)
+        return CandidImportUtil.resolveRelatively(element.containingFile, importPath)
     }
 
     override fun getAbsoluteRange(): TextRange = textRange

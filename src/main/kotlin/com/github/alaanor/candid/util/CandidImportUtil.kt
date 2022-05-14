@@ -1,6 +1,7 @@
 package com.github.alaanor.candid.util
 
 import com.github.alaanor.candid.psi.CandidImportStatement
+import com.github.alaanor.candid.psi.importPathString
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.util.PsiTreeUtil
@@ -10,8 +11,9 @@ object CandidImportUtil {
     fun getAllImportedFileFor(psiFile: PsiFile, recursively: Boolean = true): List<PsiFile> {
         val targetFiles = mutableListOf<PsiFile>()
         PsiTreeUtil.findChildrenOfType(psiFile, CandidImportStatement::class.java).forEach { importStatement ->
-            val importPath = importStatement.stringLiteral!!.text.trim('"')
-            targetFiles.addIfNotNull(resolveRelatively(psiFile, importPath))
+            importStatement.importPathString()?.let { importPath ->
+                targetFiles.addIfNotNull(resolveRelatively(psiFile, importPath))
+            }
         }
 
         if (recursively) {
