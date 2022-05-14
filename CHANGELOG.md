@@ -5,7 +5,8 @@
 ## [Unreleased]
 ### Added
 - Show all types and their path in the completion menu
-- Auto insert import when using a type outside of the current file
+- Auto insert import when using a type outside the current file
+- Added "Candid File" to File > New menu
 
 ### Fixed
 - Fixed keyword autocompletion in variant and record

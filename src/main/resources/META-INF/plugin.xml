@@ -12,6 +12,8 @@
                   fieldName="INSTANCE"
                   language="Candid"
                   extensions="did"/>
+        <internalFileTemplate name="CandidFile"/>
+
         <lang.parserDefinition language="Candid"
                                implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Candid"
@@ -48,4 +50,11 @@
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
     </extensions>
+
+    <actions>
+        <action id="Candid.NewCandidFile" class="com.github.alaanor.candid.action.CandidCreateFileAction">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+    </actions>
+
 </idea-plugin>
