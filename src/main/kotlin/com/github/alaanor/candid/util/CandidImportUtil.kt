@@ -5,26 +5,25 @@ import com.github.alaanor.candid.psi.importPathString
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.util.containers.addIfNotNull
 
 object CandidImportUtil {
-    fun getAllImportedFileFor(psiFile: PsiFile, recursively: Boolean = true): List<PsiFile> {
-        val targetFiles = mutableListOf<PsiFile>()
+
+    fun getAllImportedFileFor(psiFile: PsiFile): List<PsiFile> {
+        return getAllImportedFileFor(psiFile, mutableSetOf())
+    }
+
+    private fun getAllImportedFileFor(psiFile: PsiFile, fileSet: MutableSet<PsiFile>): List<PsiFile> {
         PsiTreeUtil.findChildrenOfType(psiFile, CandidImportStatement::class.java).forEach { importStatement ->
-            importStatement.importPathString()?.let { importPath ->
-                targetFiles.addIfNotNull(resolveRelatively(psiFile, importPath))
+            val importPath = importStatement.importPathString() ?: return@forEach
+            val file = resolveRelatively(psiFile, importPath) ?: return@forEach
+
+            if (!fileSet.contains(file)) {
+                fileSet.add(file)
+                getAllImportedFileFor(file, fileSet)
             }
         }
 
-        if (recursively) {
-            targetFiles.addAll(
-                targetFiles
-                    .map { getAllImportedFileFor(it, true) }
-                    .flatten()
-            )
-        }
-
-        return targetFiles
+        return fileSet.toList()
     }
 
     fun resolveRelatively(psiFile: PsiFile, importPath: String): PsiFile? {

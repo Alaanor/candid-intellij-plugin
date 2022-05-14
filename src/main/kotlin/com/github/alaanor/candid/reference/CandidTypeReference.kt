@@ -4,11 +4,9 @@ import com.github.alaanor.candid.completion.AddImportInsertHandler
 import com.github.alaanor.candid.psi.CandidElementFactory
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
-import com.github.alaanor.candid.psi.stub.impl.CandidIdentifierDeclarationStub
 import com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex
 import com.github.alaanor.candid.util.CandidImportUtil
 import com.github.alaanor.candid.util.filePath
-import com.github.alaanor.candid.util.filePathDirectory
 import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider
 import com.intellij.codeInsight.lookup.LookupElementBuilder
@@ -76,7 +74,7 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
             ?.let { return it }
 
         // search further
-        val files = CandidImportUtil.getAllImportedFileFor(element.containingFile, true)
+        val files = CandidImportUtil.getAllImportedFileFor(element.containingFile)
         files.forEach { file ->
             PsiTreeUtil
                 .findChildrenOfType(file, CandidIdentifierDeclaration::class.java)
