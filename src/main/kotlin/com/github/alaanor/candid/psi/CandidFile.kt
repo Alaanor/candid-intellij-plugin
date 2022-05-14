@@ -4,6 +4,7 @@ import com.github.alaanor.candid.CandidFileType
 import com.github.alaanor.candid.CandidLanguage
 import com.github.alaanor.candid.CandidTypes
 import com.github.alaanor.candid.icon.CandidIcons
+import com.github.alaanor.candid.util.filePath
 import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
@@ -30,7 +31,7 @@ class CandidFile(fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProvi
         val imports = getImports()
         val exists = imports.find { requiredImportPath == it.importPathString() } != null
 
-        if (exists) {
+        if (exists || this.filePath() == declaration.filePath()) {
             return
         }
 
