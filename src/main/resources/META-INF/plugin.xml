@@ -27,6 +27,7 @@
                                 implementationClass="com.github.alaanor.candid.completion.CandidCompletionContributor"/>
         <lang.quoteHandler language="Candid"
                            implementationClass="com.github.alaanor.candid.editing.CandidQuoteHandler"/>
+        <lang.braceMatcher language="Candid" implementationClass="com.github.alaanor.candid.editing.CandidPairedBraceMatcher" />
 
         <lang.formatter language="Candid"
                         implementationClass="com.github.alaanor.candid.formatter.CandidFormattingModelBuilder"/>
