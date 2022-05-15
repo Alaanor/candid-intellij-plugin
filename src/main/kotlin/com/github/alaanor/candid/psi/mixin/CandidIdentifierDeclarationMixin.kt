@@ -17,7 +17,6 @@ abstract class CandidIdentifierDeclarationMixin :
     CandidIdentifierDeclaration {
 
     constructor(node: ASTNode) : super(node)
-
     constructor(stub: CandidIdentifierDeclarationStub, type: IStubElementType<*, *>): super(stub, type)
 
     override fun getNameIdentifier(): PsiElement = node.psi

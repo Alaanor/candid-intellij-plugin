@@ -7,6 +7,7 @@ object CandidStubTypes {
     fun get(name: String): IElementType {
         return when (name) {
             "IDENTIFIER_DECLARATION" -> CandidIdentifierDeclarationStubType
+            "IMPORT_STATEMENT" -> CandidImportStatementStubType
             else -> throw UnsupportedOperationException("Unsupported stub type")
         }
     }

@@ -50,6 +50,8 @@ private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 
 import_statement ::= import string_literal {
     mixin="com.github.alaanor.candid.psi.mixin.CandidImportStatementMixin"
+    stubClass="com.github.alaanor.candid.psi.stub.impl.CandidImportStatementStub"
+    elementTypeFactory="com.github.alaanor.candid.psi.stub.type.CandidStubTypes.get"
     name="import"
     pin=1
 }

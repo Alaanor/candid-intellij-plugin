@@ -1,7 +1,10 @@
 package com.github.alaanor.candid.psi.stub.type
 
 import com.github.alaanor.candid.CandidLanguage
+import com.github.alaanor.candid.psi.stub.impl.CandidIdentifierDeclarationStub
+import com.github.alaanor.candid.psi.stub.impl.CandidImportStatementStub
 import com.github.alaanor.candid.psi.stub.impl.CandidStubBase
+import com.github.alaanor.candid.psi.stub.index.CandidStubImportIndex
 import com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex
 import com.intellij.psi.PsiElement
 import com.intellij.psi.stubs.*
@@ -18,7 +21,10 @@ abstract class CandidStubTypeBase<TStub: CandidStubBase<TPsi>, TPsi : PsiElement
     }
 
     override fun indexStub(stub: TStub, sink: IndexSink) {
-        sink.occurrence(CandidStubTypeIndex.Key, stub.name)
+        when (stub) {
+            is CandidIdentifierDeclarationStub -> sink.occurrence(CandidStubTypeIndex.Key, stub.name)
+            is CandidImportStatementStub -> sink.occurrence(CandidStubImportIndex.Key, stub.name)
+        }
     }
 
     abstract fun createStub(name: String, parentStub: StubElement<*>?) : TStub
