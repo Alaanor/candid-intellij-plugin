@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+
+## [0.1.1]
 ### Added
 - Paired bracket and parenthesis
 - Quote handler
@@ -23,7 +25,7 @@
 - Fixed some stuff in CI pipeline
 - Remove usage of internal API
 
-## [0.0.1] 
+## [0.0.1]
 ### Added
 - 💡 Syntax Highlighting
 - ⌨️ Auto Completion
