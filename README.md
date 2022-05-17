@@ -21,7 +21,7 @@ Features supported so far:
 
 ## Early stage
 
-This plugin is in the early stage and while this already some basic feature it might as well miss some. It is in my plan to work on it for the next 5 weeks and submit as an entry for the [Supernova hackathon](https://dfinity.org/supernova/). If you have any feedback or issue feel free to open an issue or directly get in touch with me on discord Alaanor#9999.
+This plugin is in the early stage and while this already has some basic feature it might as well miss some. It is in my plan to work on it for the next 5 weeks and submit as an entry for the [Supernova hackathon](https://dfinity.org/supernova/). If you have any feedback or issue feel free to open an issue or directly get in touch with me on discord Alaanor#9999.
 
 ## Installation
 
