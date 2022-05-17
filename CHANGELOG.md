@@ -6,6 +6,7 @@
 ### Added
 - Paired bracket and parenthesis
 - Quote handler
+- Bumped plugin version range to support 2022.1.1
 
 ## [0.1.0]
 ### Added
