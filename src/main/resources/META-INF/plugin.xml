@@ -52,7 +52,6 @@
 
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
-        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubImportIndex"/>
     </extensions>
 
     <actions>
