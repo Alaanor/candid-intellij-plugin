@@ -14,7 +14,6 @@ import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.refactoring.suggested.startOffset
-import org.intellij.markdown.flavours.gfm.table.GitHubTableMarkerProvider.Companion.contains
 
 class CandidImportReference(importStatement: CandidImportStatement, private var textRange: TextRange) :
     PsiReferenceBase<CandidImportStatement>(importStatement, textRange) {
