@@ -1,6 +1,7 @@
 {
   parserClass="com.github.alaanor.candid.CandidParser"
 
+  implements="com.github.alaanor.candid.psi.CandidElement"
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
   psiClassPrefix="Candid"

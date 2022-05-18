@@ -18,7 +18,6 @@
                                implementationClass="com.github.alaanor.candid.CandidParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Candid"
                                        implementationClass="com.github.alaanor.candid.highlight.CandidSyntaxHighlighterFactory"/>
-        <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
         <lang.refactoringSupport language="Candid"
                                  implementationClass="com.github.alaanor.candid.CandidRefactoringSupportProvider"/>
         <lang.findUsagesProvider language="Candid"
@@ -27,10 +26,14 @@
                                 implementationClass="com.github.alaanor.candid.completion.CandidCompletionContributor"/>
         <lang.quoteHandler language="Candid"
                            implementationClass="com.github.alaanor.candid.editing.CandidQuoteHandler"/>
-        <lang.braceMatcher language="Candid" implementationClass="com.github.alaanor.candid.editing.CandidPairedBraceMatcher" />
-
+        <lang.braceMatcher language="Candid"
+                           implementationClass="com.github.alaanor.candid.editing.CandidPairedBraceMatcher"/>
+        <lang.importOptimizer language="Candid"
+                              implementationClass="com.github.alaanor.candid.formatter.CandidImportOptimizer"/>
         <lang.formatter language="Candid"
                         implementationClass="com.github.alaanor.candid.formatter.CandidFormattingModelBuilder"/>
+
+        <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
         <codeStyleSettingsProvider
                 implementation="com.github.alaanor.candid.formatter.CandidCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider
@@ -44,6 +47,10 @@
                          implementationClass="com.github.alaanor.candid.inspection.CandidUnresolvedReferenceInspection"
                          level="ERROR" displayName="Unresolved reference" enabledByDefault="true"
                          groupName="Candid inspections"/>
+        <localInspection language="Candid"
+                         implementationClass="com.github.alaanor.candid.inspection.CandidUnusedImportInspection"
+                         level="WARNING" displayName="Unused import" enabledByDefault="true"
+                         groupName="Candid inspections"/>
 
         <annotator language="Candid"
                    implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>
@@ -52,6 +59,8 @@
 
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
+
+        <include.provider implementation="com.github.alaanor.candid.index.CandidFileIncludeProvider"/>
     </extensions>
 
     <actions>
