@@ -3,6 +3,7 @@ package com.github.alaanor.candid.inspection
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
 import com.github.alaanor.candid.psi.impl.CandidActorImpl
+import com.github.alaanor.candid.quickfix.CandidRemoveUnusedTypeQuickFix
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope
@@ -32,7 +33,8 @@ class CandidUnusedTypeInspection : LocalInspectionTool() {
                 problemsHolder.registerProblem(
                     declaration.originalElement,
                     "Unused type",
-                    ProblemHighlightType.LIKE_UNUSED_SYMBOL
+                    ProblemHighlightType.LIKE_UNUSED_SYMBOL,
+                    CandidRemoveUnusedTypeQuickFix(declaration)
                 )
             }
         }
