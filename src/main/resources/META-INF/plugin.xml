@@ -44,16 +44,14 @@
                          level="WARNING" displayName="Unused type" enabledByDefault="true"
                          groupName="Candid inspections"/>
         <localInspection language="Candid"
-                         implementationClass="com.github.alaanor.candid.inspection.CandidUnresolvedReferenceInspection"
-                         level="ERROR" displayName="Unresolved reference" enabledByDefault="true"
-                         groupName="Candid inspections"/>
-        <localInspection language="Candid"
                          implementationClass="com.github.alaanor.candid.inspection.CandidUnusedImportInspection"
                          level="WARNING" displayName="Unused import" enabledByDefault="true"
                          groupName="Candid inspections"/>
 
         <annotator language="Candid"
                    implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>
+        <annotator language="Candid"
+                   implementationClass="com.github.alaanor.candid.annotator.CandidUnresolvedReferenceAnnotator"/>
 
         <iconProvider implementation="com.github.alaanor.candid.icon.CandidIconProvider"/>
 

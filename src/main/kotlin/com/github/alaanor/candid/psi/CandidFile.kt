@@ -9,6 +9,7 @@ import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.elementType
 import javax.swing.Icon
@@ -35,20 +36,28 @@ class CandidFile(fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProvi
             return
         }
 
+        addImport(requiredImportPath)
+    }
+
+    fun addImportFor(target: PsiFile) {
+        addImport(this.getRelativePath(target.virtualFile))
+    }
+
+    private fun addImport(path: String) {
+        val imports = getImports()
         val lastImport = imports.lastOrNull()?.let {
             if (it.nextSibling.elementType == CandidTypes.SEMICOLON)
                 return@let it.nextSibling
             return@let it
         }
 
-        val newImport = CandidElementFactory.createImportStatement(project, requiredImportPath)
+        val newImport = CandidElementFactory.createImportStatement(project, path)
         if (lastImport != null) {
             addRangeAfter(newImport.firstChild, newImport.lastChild, lastImport)
         } else {
             addRangeBefore(newImport.firstChild, newImport.lastChild, firstChild)
         }
     }
-
 
     private fun getImports(): Collection<CandidImportStatement> {
         return PsiTreeUtil.findChildrenOfType(this, CandidImportStatement::class.java)

@@ -3,6 +3,7 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+- 🪄 Suggest missing import whenever possible
 
 ## [0.1.1]
 ### Added
