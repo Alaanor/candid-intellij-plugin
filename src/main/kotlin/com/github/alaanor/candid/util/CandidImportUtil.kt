@@ -5,7 +5,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.include.FileIncludeManager
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
 object CandidImportUtil {
