@@ -11,6 +11,7 @@ import kotlin.math.min
 
 val BraceAfterInsertHandler = SmartInsertHandler(" {}", -1, '{')
 val FuncParenAfterInsertHandler = SmartInsertHandler(" () -> ()", -7, '(')
+val QuoteSemicolonAfterInsertHandler = SmartInsertHandler(" \"\";", -2, '"')
 val SpaceAfterInsertHandler = SmartInsertHandler(" ")
 val EmptyInsertHandler = SmartInsertHandler("")
 

@@ -14,9 +14,12 @@ class TopLevelKeywordCompletion : CandidBasicCompletion() {
         .withParent(PsiErrorElement::class.java)
         .withSuperParent(2, CandidFile::class.java)
 
-    override val tokenList: List<String> = listOf("type", "service")
+    override val tokenList: List<String> = listOf("type", "service", "import")
 
     override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> {
-        return SpaceAfterInsertHandler
+        return when (keyword) {
+            "import" -> QuoteSemicolonAfterInsertHandler
+            else -> SpaceAfterInsertHandler
+        }
     }
 }

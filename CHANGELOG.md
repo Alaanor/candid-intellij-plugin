@@ -3,7 +3,11 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+### Added
 - 🪄 Suggest missing import whenever possible
+
+### Fixed
+- Added missing top level keyword import
 
 ## [0.1.1]
 ### Added
