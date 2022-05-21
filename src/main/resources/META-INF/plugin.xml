@@ -60,6 +60,8 @@
                    implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>
         <annotator language="Candid"
                    implementationClass="com.github.alaanor.candid.annotator.CandidUnresolvedReferenceAnnotator"/>
+        <annotator language="Candid"
+                   implementationClass="com.github.alaanor.candid.annotator.CandidUnresolvedImportAnnotator"/>
 
         <iconProvider implementation="com.github.alaanor.candid.icon.CandidIconProvider"/>
 
