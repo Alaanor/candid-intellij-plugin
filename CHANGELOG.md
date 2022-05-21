@@ -9,6 +9,7 @@
 - ️🧐 Marking duplicated type name as invalid
 - ️🧐 Marking empty and invalid import as invalid
 - ✨ Comment code through shortcut
+- 📝 Documentation for type reference
 
 ### Fixed
 - Added missing top level keyword import
