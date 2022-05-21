@@ -5,7 +5,8 @@
 ## [Unreleased]
 ### Added
 - 🪄 Suggest missing import whenever possible
-- ️⚠️ Marking self import as invalid
+- ️🧐 Marking self import as invalid
+- ️🧐 Marking duplicated type name as invalid
 
 ### Fixed
 - Added missing top level keyword import
