@@ -19,6 +19,6 @@ object CandidElementFactory {
         return createDummyFile(project, "import \"$path\";")
     }
 
-    private fun createDummyFile(project: Project, text: String): CandidFile = PsiFileFactory.getInstance(project)
+    fun createDummyFile(project: Project, text: String): CandidFile = PsiFileFactory.getInstance(project)
         .createFileFromText("dummy.candid", CandidFileType.INSTANCE, text) as CandidFile
 }

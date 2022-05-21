@@ -71,6 +71,7 @@
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
 
         <include.provider implementation="com.github.alaanor.candid.index.CandidFileIncludeProvider"/>
+        <documentationProvider implementation="com.github.alaanor.candid.ui.CandidDocumentationProvider"/>
     </extensions>
 
     <actions>
