@@ -8,6 +8,7 @@
 - ️🧐 Marking self import as invalid
 - ️🧐 Marking duplicated type name as invalid
 - ️🧐 Marking empty and invalid import as invalid
+- ✨ Comment code through shortcut
 
 ### Fixed
 - Added missing top level keyword import

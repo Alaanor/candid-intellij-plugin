@@ -32,6 +32,8 @@
                               implementationClass="com.github.alaanor.candid.formatter.CandidImportOptimizer"/>
         <lang.formatter language="Candid"
                         implementationClass="com.github.alaanor.candid.formatter.CandidFormattingModelBuilder"/>
+        <lang.commenter language="Candid"
+                        implementationClass="com.github.alaanor.candid.editing.CandidCommenter"/>
 
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
         <codeStyleSettingsProvider
