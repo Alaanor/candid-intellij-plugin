@@ -51,6 +51,10 @@
                          implementationClass="com.github.alaanor.candid.inspection.CandidSelfImportInspection"
                          level="ERROR" displayName="Self import" enabledByDefault="true"
                          groupName="Candid inspections"/>
+        <localInspection language="Candid"
+                         implementationClass="com.github.alaanor.candid.inspection.CandidDuplicateTypeInspection"
+                         level="ERROR" displayName="Duplicate type name" enabledByDefault="true"
+                         groupName="Candid inspections"/>
 
         <annotator language="Candid"
                    implementationClass="com.github.alaanor.candid.annotator.CandidHighlightAnnotator"/>

@@ -1,12 +1,11 @@
 package com.github.alaanor.candid.util
 
-import com.github.alaanor.candid.psi.CandidIdentifierReference
-import com.github.alaanor.candid.psi.CandidImportStatement
-import com.github.alaanor.candid.psi.importPathString
-import com.github.alaanor.candid.psi.importedPsiFile
+import com.github.alaanor.candid.psi.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.include.FileIncludeManager
+import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
 object CandidImportUtil {
@@ -101,6 +100,11 @@ object CandidImportUtil {
             }
 
         return fileSet
+    }
+
+    fun getImportedSearchScope(file: PsiFile) : GlobalSearchScope {
+        val importedFiles = getAllImportedFileFor(file).toMutableSet().map { it.virtualFile }
+        return GlobalSearchScope.filesScope(file.project, importedFiles)
     }
 }
 
