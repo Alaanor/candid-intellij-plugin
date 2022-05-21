@@ -5,6 +5,7 @@
 ## [Unreleased]
 ### Added
 - 🪄 Suggest missing import whenever possible
+- ️⚠️ Marking self import as invalid
 
 ### Fixed
 - Added missing top level keyword import
