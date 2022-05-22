@@ -72,6 +72,7 @@
 
         <include.provider implementation="com.github.alaanor.candid.index.CandidFileIncludeProvider"/>
         <documentationProvider implementation="com.github.alaanor.candid.ui.CandidDocumentationProvider"/>
+        <gotoSymbolContributor implementation="com.github.alaanor.candid.reference.CandidGoToSymbolContributor"/>
     </extensions>
 
     <actions>
