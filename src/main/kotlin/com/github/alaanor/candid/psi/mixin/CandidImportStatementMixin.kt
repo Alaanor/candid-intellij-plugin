@@ -2,6 +2,7 @@ package com.github.alaanor.candid.psi.mixin
 
 import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidImportStatement
+import com.github.alaanor.candid.psi.getTextRangeWithoutQuote
 import com.github.alaanor.candid.psi.importedPsiFile
 import com.github.alaanor.candid.psi.primitive.CandidElementBase
 import com.github.alaanor.candid.reference.CandidImportReference
@@ -14,7 +15,7 @@ import javax.swing.Icon
 abstract class CandidImportStatementMixin(node: ASTNode) : CandidElementBase(node), CandidImportStatement, ItemPresentation {
 
     override fun getReference(): PsiReference? {
-        return stringLiteral?.textRange?.let {
+        return stringLiteral?.getTextRangeWithoutQuote()?.let {
             CandidImportReference(this, it)
         }
     }
