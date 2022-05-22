@@ -2,6 +2,7 @@ package com.github.alaanor.candid.psi
 
 import com.github.alaanor.candid.CandidTypes
 import com.github.alaanor.candid.util.CandidImportUtil
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
@@ -32,4 +33,8 @@ fun CandidElement.deleteWithSurroundSemicolon() {
     }
 
     delete()
+}
+
+fun CandidStringLiteral.getTextRangeWithoutQuote(): TextRange {
+    return TextRange.create(node.textRange.startOffset + 1, node.textRange.endOffset - 1)
 }

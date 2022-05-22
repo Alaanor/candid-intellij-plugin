@@ -11,6 +11,7 @@
 - ✨ Comment code through shortcut
 - 📝 Documentation for type reference
 - 🔎 Go to symbol for candid type
+- 📝 Structure view
 
 ### Fixed
 - Added missing top level keyword import

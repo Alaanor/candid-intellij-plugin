@@ -1,3 +1,5 @@
+import "CommentTestData.did"; // useless import
+
 type http_header = record {
     name: text;
     value: text
@@ -9,14 +11,16 @@ type http_response = record {
     body: blob;
 };
 
-service: {
+service foobar: {
     http_request : (record {
         url : text;
-        method : variant { get };
+        method : variant {
+            get
+        };
         headers: vec http_header;
         body : opt blob;
         transform : opt variant {
             function: func (http_response) -> (http_response) query
         };
-    }) -> (http_response)
+    }) -> (http_response);
 }

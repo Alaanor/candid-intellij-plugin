@@ -42,11 +42,18 @@ private meta list ::= <<list_item <<p>> <<s>>>>*
 private prog ::= <<list (definition|import_statement) ';'>> actor?
 
 definition ::= type identifier_declaration '=' data_type {
-    pin=1
     name="type"
+    pin=1
 }
 
-actor ::= service id? ':' (tup_type '->')? (actor_type | identifier_reference) { pin=1 name="service" }
+actor ::= service actor_name? ':' (tup_type '->')? (actor_type | identifier_reference) {
+    mixin="com.github.alaanor.candid.psi.mixin.CandidServiceMixin"
+    name="service"
+    pin=1
+}
+
+actor_name ::= id
+
 private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
 
 import_statement ::= import string_literal {
@@ -55,11 +62,16 @@ import_statement ::= import string_literal {
     pin=1
 }
 
-meth_type ::= name ':' (func_type | identifier_reference)
+meth_type ::= method_name ':' (func_type | identifier_reference) {
+    mixin="com.github.alaanor.candid.psi.mixin.CandidMethodMixin"
+}
+
+method_name ::= name
+
 private func_type ::= tup_type '->' tup_type func_annotation*
-private func_annotation ::= oneway | query
+func_annotation ::= oneway | query
 tup_type ::= '(' <<list tup_arg_type ",">>? ')' { pin=1 }
-private  tup_arg_type ::= data_type | name ':' data_type
+private  tup_arg_type ::= name ':' data_type | data_type
 
 private field_type ::= nat_type ':' data_type | name ':' data_type { pin=2 }
 field_type_record ::= field_type | data_type

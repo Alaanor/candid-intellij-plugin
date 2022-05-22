@@ -1,10 +1,10 @@
 package com.github.alaanor.candid.quickfix.action
 
+import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidFile
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.util.projectFilePath
 import com.intellij.codeInsight.hint.QuestionAction
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.ui.popup.PopupStep
@@ -41,7 +41,7 @@ class CandidAddImportAction(
             }
 
             override fun getIconFor(value: CandidIdentifierDeclaration?): Icon? {
-                return AllIcons.Nodes.Type
+                return CandidIcons.Type
             }
 
             override fun onChosen(selectedValue: CandidIdentifierDeclaration, finalChoice: Boolean): PopupStep<*>? {
