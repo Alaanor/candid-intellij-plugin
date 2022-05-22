@@ -10,6 +10,7 @@
 - ️🧐 Marking empty and invalid import as invalid
 - ✨ Comment code through shortcut
 - 📝 Documentation for type reference
+- 🔎 Go to symbol for candid type
 
 ### Fixed
 - Added missing top level keyword import
