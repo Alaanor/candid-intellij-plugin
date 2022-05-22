@@ -34,6 +34,8 @@
                         implementationClass="com.github.alaanor.candid.formatter.CandidFormattingModelBuilder"/>
         <lang.commenter language="Candid"
                         implementationClass="com.github.alaanor.candid.editing.CandidCommenter"/>
+        <lang.psiStructureViewFactory language="Candid"
+                                      implementationClass="com.github.alaanor.candid.ui.CandidStructureViewFactory"/>
 
         <colorSettingsPage implementation="com.github.alaanor.candid.highlight.CandidColorSettingsPage"/>
         <codeStyleSettingsProvider
