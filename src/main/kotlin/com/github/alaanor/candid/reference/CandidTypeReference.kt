@@ -1,6 +1,7 @@
 package com.github.alaanor.candid.reference
 
 import com.github.alaanor.candid.completion.AddImportInsertHandler
+import com.github.alaanor.candid.icon.CandidIcons
 import com.github.alaanor.candid.psi.CandidElementFactory
 import com.github.alaanor.candid.psi.CandidIdentifierDeclaration
 import com.github.alaanor.candid.psi.CandidIdentifierReference
@@ -10,7 +11,6 @@ import com.github.alaanor.candid.util.filePath
 import com.github.alaanor.candid.util.getRelativePath
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider
 import com.intellij.codeInsight.lookup.LookupElementBuilder
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
@@ -62,7 +62,7 @@ class CandidTypeReference(identifierReference: CandidIdentifierReference, privat
                 LookupElementBuilder.create(it)
                     .withTypeText(if (samePath) "type" else "(${element.getRelativePath(it)}) type")
                     .withInsertHandler(AddImportInsertHandler(it))
-                    .withIcon(AllIcons.Nodes.Type)
+                    .withIcon(CandidIcons.Type)
             }.toTypedArray()
     }
 
