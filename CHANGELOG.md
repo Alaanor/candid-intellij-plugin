@@ -15,6 +15,7 @@
 
 ### Fixed
 - Added missing top level keyword import
+- Missing keyword completion for query and oneway
 
 ## [0.1.1]
 ### Added
