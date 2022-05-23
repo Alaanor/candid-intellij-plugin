@@ -36,7 +36,7 @@ class CandidAddImportQuickFix(private val unresolved: CandidIdentifierReference)
             CandidIdentifierDeclaration::class.java
         ).toList()
 
-        return true
+        return this.solutions.isNotEmpty()
     }
 
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
