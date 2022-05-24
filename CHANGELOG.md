@@ -16,6 +16,7 @@
 ### Fixed
 - Added missing top level keyword import
 - Missing keyword completion for query and oneway
+- Stop suggesting top level keyword inside a service
 
 ## [0.1.1]
 ### Added
