@@ -8,9 +8,7 @@ import com.intellij.psi.stubs.StubElement
 
 object CandidIdentifierDeclarationStubType :
     CandidStubTypeBase<CandidIdentifierDeclarationStub, CandidIdentifierDeclaration>("CANDID_TYPE_DEFINITION") {
-    override fun getExternalId(): String {
-        return "candid.type.stub"
-    }
+    override fun getExternalId(): String = "candid.type.stub"
 
     override fun createPsi(stub: CandidIdentifierDeclarationStub): CandidIdentifierDeclaration {
         return CandidIdentifierDeclarationImpl(stub, stub.stubType)

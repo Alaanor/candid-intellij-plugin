@@ -1,7 +1,7 @@
 package com.github.alaanor.candid.completion
 
 import com.github.alaanor.candid.psi.CandidActor
-import com.github.alaanor.candid.psi.CandidMethType
+import com.github.alaanor.candid.psi.CandidMethodType
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.patterns.ElementPattern
@@ -18,7 +18,7 @@ class MethodAnnotationCompletion : CandidBasicCompletion() {
             psiElement(CandidActor::class.java)
                 .with(object : PatternCondition<CandidActor>("bruh") {
                     override fun accepts(t: CandidActor, context: ProcessingContext?): Boolean {
-                        return t.lastChild is CandidMethType
+                        return t.lastChild is CandidMethodType
                     }
                 })
         )

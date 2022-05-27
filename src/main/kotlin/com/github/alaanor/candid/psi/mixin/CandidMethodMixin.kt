@@ -1,17 +1,39 @@
 package com.github.alaanor.candid.psi.mixin
 
 import com.github.alaanor.candid.icon.CandidIcons
-import com.github.alaanor.candid.psi.CandidFuncAnnotation
-import com.github.alaanor.candid.psi.CandidMethType
-import com.github.alaanor.candid.psi.CandidMethodName
-import com.github.alaanor.candid.psi.primitive.CandidElementBase
+import com.github.alaanor.candid.psi.*
+import com.github.alaanor.candid.psi.primitive.CandidStubBasedElementBase
+import com.github.alaanor.candid.psi.stub.CandidStubBasedPsiElement
+import com.github.alaanor.candid.psi.stub.impl.CandidMethodStub
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.stubs.IStubElementType
 import javax.swing.Icon
 
-abstract class CandidMethodMixin(node: ASTNode) : CandidElementBase(node), CandidMethType, ItemPresentation {
-    override fun getName(): String? = children.find { it is CandidMethodName }?.text
+abstract class CandidMethodMixin :
+    CandidStubBasedElementBase<CandidMethodStub>,
+    CandidStubBasedPsiElement<CandidMethodStub, CandidMethodType>,
+    CandidMethodType,
+    ItemPresentation {
+
+    constructor(node: ASTNode) : super(node)
+    constructor(stub: CandidMethodStub, type: IStubElementType<*, *>) : super(stub, type)
+
+    override fun getName(): String? {
+        if (methodName.stringLiteral !== null)
+            return methodName.stringLiteral?.textWithoutQuote()
+        return methodName.text
+    }
+
     override fun getPresentableText(): String = name ?: "Unnamed method"
+    override fun getTextOffset(): Int = methodName.textOffset
+
+    override fun getTextRange(): TextRange {
+        if (methodName.stringLiteral !== null)
+            return methodName.stringLiteral?.getTextRangeWithoutQuote() ?: node.textRange
+        return methodName.textRange
+    }
 
     override fun getIcon(unused: Boolean): Icon {
         return when (getMethodType()) {

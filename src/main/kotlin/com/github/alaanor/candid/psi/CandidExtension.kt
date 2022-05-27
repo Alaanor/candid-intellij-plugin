@@ -8,8 +8,10 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.util.elementType
 
+fun CandidStringLiteral.textWithoutQuote(): String = this.text.trim('"')
+
 fun CandidImportStatement.importPathString(): String? {
-    return this.stringLiteral?.text?.trim('"')
+    return this.stringLiteral?.textWithoutQuote()
 }
 
 fun CandidImportStatement.importedPsiFile(): PsiFile? {

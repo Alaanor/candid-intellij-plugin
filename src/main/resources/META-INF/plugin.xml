@@ -5,6 +5,7 @@
     <vendor>Alaanor</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="candid-rust.xml">org.rust.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="Candid"
@@ -71,6 +72,7 @@
 
         <stubElementTypeHolder class="com.github.alaanor.candid.CandidTypes"/>
         <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubTypeIndex"/>
+        <stubIndex implementation="com.github.alaanor.candid.psi.stub.index.CandidStubMethodIndex"/>
 
         <include.provider implementation="com.github.alaanor.candid.index.CandidFileIncludeProvider"/>
         <documentationProvider implementation="com.github.alaanor.candid.ui.CandidDocumentationProvider"/>

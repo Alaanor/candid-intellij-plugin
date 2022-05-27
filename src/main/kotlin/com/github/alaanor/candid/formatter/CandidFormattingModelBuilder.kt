@@ -11,7 +11,7 @@ class CandidFormattingModelBuilder : FormattingModelBuilder {
         val fields_tokens = TokenSet.create(
             CandidTypes.FIELD_TYPE_RECORD,
             CandidTypes.FIELD_TYPE_VARIANT,
-            CandidTypes.METH_TYPE
+            CandidTypes.METHOD_TYPE
         )
 
         val comment_tokens = TokenSet.create(
