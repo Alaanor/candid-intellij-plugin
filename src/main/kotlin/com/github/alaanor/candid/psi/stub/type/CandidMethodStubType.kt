@@ -2,6 +2,7 @@ package com.github.alaanor.candid.psi.stub.type
 
 import com.github.alaanor.candid.psi.CandidMethodType
 import com.github.alaanor.candid.psi.impl.CandidMethodTypeImpl
+import com.github.alaanor.candid.psi.methodNameText
 import com.github.alaanor.candid.psi.stub.impl.CandidMethodStub
 import com.intellij.psi.PsiElement
 import com.intellij.psi.stubs.StubElement
@@ -18,6 +19,6 @@ object CandidMethodStubType : CandidStubTypeBase<CandidMethodStub, CandidMethodT
     }
 
     override fun createStub(psi: CandidMethodType, parentStub: StubElement<out PsiElement>?): CandidMethodStub {
-        return CandidMethodStub(psi.methodName.text, parentStub)
+        return CandidMethodStub(psi.methodNameText(), parentStub)
     }
 }

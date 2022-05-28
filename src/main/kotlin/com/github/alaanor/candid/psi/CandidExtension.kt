@@ -40,3 +40,9 @@ fun CandidElement.deleteWithSurroundSemicolon() {
 fun CandidStringLiteral.getTextRangeWithoutQuote(): TextRange {
     return TextRange.create(node.textRange.startOffset + 1, node.textRange.endOffset - 1)
 }
+
+fun CandidMethodType.methodNameText(): String {
+    if (this.methodName.stringLiteral !== null)
+        return this.methodName.stringLiteral?.textWithoutQuote() ?: this.methodName.text
+    return this.methodName.text
+}

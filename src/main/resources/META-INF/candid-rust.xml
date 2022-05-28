@@ -1,6 +1,7 @@
 <idea-plugin>
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.lineMarkerProvider
+                language="Rust"
                 implementationClass="com.github.alaanor.candid.marker.CandidMethodRsLineMarkerProvider"/>
     </extensions>
 </idea-plugin>
