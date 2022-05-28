@@ -8,7 +8,7 @@ plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("org.jetbrains.intellij") version "1.4.0"
-    id("org.jetbrains.grammarkit") version "2021.2.1"
+    id("org.jetbrains.grammarkit") version "2021.2.2"
     id("org.jetbrains.changelog") version "1.3.1"
     id("org.jetbrains.qodana") version "0.1.13"
 }
