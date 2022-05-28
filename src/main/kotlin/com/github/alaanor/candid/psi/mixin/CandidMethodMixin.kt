@@ -38,7 +38,10 @@ abstract class CandidMethodMixin :
     }
 
     override fun getReference(): PsiReference? {
-        return CandidMethodReference(this, TextRange.create(0, methodName.textLength))
+        return CandidMethodReference(
+            this,
+            TextRange.create(0, methodNameText().length)
+        )
     }
 
     override fun getIcon(unused: Boolean): Icon {
