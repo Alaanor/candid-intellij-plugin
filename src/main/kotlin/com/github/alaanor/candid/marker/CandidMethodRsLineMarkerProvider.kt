@@ -1,6 +1,7 @@
 package com.github.alaanor.candid.marker
 
 import com.github.alaanor.candid.icon.CandidIcons
+import com.github.alaanor.candid.project.DfxJson
 import com.github.alaanor.candid.psi.CandidMethodType
 import com.github.alaanor.candid.psi.stub.index.CandidStubMethodIndex
 import com.github.alaanor.candid.util.CandidRustIcCdkUtil
@@ -20,11 +21,13 @@ class CandidMethodRsLineMarkerProvider : RelatedItemLineMarkerProvider() {
     ) {
         val rsFunction = element as? RsFunction ?: return
         val name = CandidRustIcCdkUtil.getName(rsFunction) ?: return
+        val candidFile = DfxJson.getCandidFileFromRustFile(element.containingFile) ?: return
+
         val candidMethod = StubIndex.getElements(
             CandidStubMethodIndex.Key,
             name,
             element.project,
-            GlobalSearchScope.projectScope(element.project),
+            GlobalSearchScope.fileScope(element.project, candidFile.virtualFile),
             CandidMethodType::class.java
         ).firstOrNull() ?: return
 
