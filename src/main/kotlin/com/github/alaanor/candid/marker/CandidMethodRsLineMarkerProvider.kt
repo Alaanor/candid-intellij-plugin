@@ -27,7 +27,7 @@ class CandidMethodRsLineMarkerProvider : RelatedItemLineMarkerProvider() {
             CandidStubMethodIndex.Key,
             name,
             element.project,
-            GlobalSearchScope.fileScope(element.project, candidFile.virtualFile),
+            GlobalSearchScope.fileScope(element.project, candidFile),
             CandidMethodType::class.java
         ).firstOrNull() ?: return
 

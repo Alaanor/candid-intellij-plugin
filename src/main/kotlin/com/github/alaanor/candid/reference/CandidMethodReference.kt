@@ -1,12 +1,12 @@
 package com.github.alaanor.candid.reference
 
+import com.github.alaanor.candid.project.DfxJson
 import com.github.alaanor.candid.psi.CandidMethodType
 import com.github.alaanor.candid.psi.methodNameText
 import com.github.alaanor.candid.util.CandidRustIcCdkUtil
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
-import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.StubIndex
 import org.rust.lang.core.psi.RsFunction
 import org.rust.lang.core.psi.ext.RsNamedElement
@@ -18,11 +18,16 @@ class CandidMethodReference(method: CandidMethodType, private var textRange: Tex
     override fun getAbsoluteRange(): TextRange = textRange
 
     override fun resolve(): PsiElement? {
+        val rustPackageScope = DfxJson.getRustCanisterScopeFromCandidFile(
+            element.project,
+            element.containingFile.virtualFile
+        ) ?: return null
+
         val namedElements = StubIndex.getElements(
             RsNamedElementIndex.KEY,
             element.methodNameText(),
             element.project,
-            GlobalSearchScope.projectScope(element.project),
+            rustPackageScope,
             RsNamedElement::class.java
         )
 

@@ -3,5 +3,6 @@
         <codeInsight.lineMarkerProvider
                 language="Rust"
                 implementationClass="com.github.alaanor.candid.marker.CandidMethodRsLineMarkerProvider"/>
+        <vfs.asyncListener implementation="com.github.alaanor.candid.listener.DfxFileListener"/>
     </extensions>
 </idea-plugin>
