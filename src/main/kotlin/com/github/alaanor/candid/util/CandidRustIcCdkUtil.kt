@@ -13,25 +13,30 @@ class CandidRustIcCdkUtil {
             return getName(rsMetaItem, rsFunction)
         }
 
-        private fun getName(rsMetaItem: RsMetaItem, rsFunction: RsFunction): String? {
+        fun getName(rsMetaItem: RsMetaItem): String? {
             return rsMetaItem.metaItemArgsList.find { it.name == "name" }?.value
-                ?: rsFunction.name
+        }
+
+        fun isIcCdkUpdateQuery(rsMetaItem: RsMetaItem): Boolean {
+            return when (rsMetaItem.path?.textNormalized) {
+                "ic_cdk_macros::update", "ic_cdk_macros::query" -> true
+                "update", "query" -> {
+                    rsMetaItem.path
+                        ?.reference
+                        ?.resolve()
+                        ?.containingCrate
+                        ?.normName == "ic_cdk_macros"
+                }
+                else -> false
+            }
+        }
+
+        private fun getName(rsMetaItem: RsMetaItem, rsFunction: RsFunction): String? {
+            return getName(rsMetaItem) ?: rsFunction.name
         }
 
         private fun getMetaItem(rsFunction: RsFunction): RsMetaItem? {
-            return rsFunction.rawMetaItems.find {
-                when (it.path?.textNormalized) {
-                    "ic_cdk_macros::update", "ic_cdk_macros::query" -> true
-                    "update", "query" -> {
-                        it.path
-                            ?.reference
-                            ?.resolve()
-                            ?.containingCrate
-                            ?.normName == "ic_cdk_macros"
-                    }
-                    else -> false
-                }
-            }
+            return rsFunction.rawMetaItems.find { isIcCdkUpdateQuery(it) }
         }
     }
 }
