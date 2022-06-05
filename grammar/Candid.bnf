@@ -54,7 +54,7 @@ actor ::= service actor_name? ':' (tup_type '->')? (actor_type | identifier_refe
 
 actor_name ::= id
 
-private actor_type ::= '{' <<list meth_type ';'>>? '}' { pin=1 }
+private actor_type ::= '{' <<list method_type ';'>>? '}' { pin=1 }
 
 import_statement ::= import string_literal {
     mixin="com.github.alaanor.candid.psi.mixin.CandidImportStatementMixin"
@@ -62,8 +62,11 @@ import_statement ::= import string_literal {
     pin=1
 }
 
-meth_type ::= method_name ':' (func_type | identifier_reference) {
+method_type ::= method_name ':' (func_type | identifier_reference) {
     mixin="com.github.alaanor.candid.psi.mixin.CandidMethodMixin"
+    stubClass="com.github.alaanor.candid.psi.stub.impl.CandidMethodStub"
+    elementTypeFactory="com.github.alaanor.candid.psi.stub.type.CandidStubTypes.get"
+    name = "method"
 }
 
 method_name ::= name

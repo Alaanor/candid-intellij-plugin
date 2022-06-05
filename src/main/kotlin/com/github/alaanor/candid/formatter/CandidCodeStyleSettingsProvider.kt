@@ -12,7 +12,7 @@ import com.intellij.psi.codeStyle.CustomCodeStyleSettings
 class CandidCodeStyleSettingsProvider : CodeStyleSettingsProvider() {
     override fun getConfigurableDisplayName(): String = "Candid"
 
-    override fun createCustomSettings(settings: CodeStyleSettings): CustomCodeStyleSettings? {
+    override fun createCustomSettings(settings: CodeStyleSettings): CustomCodeStyleSettings {
         return CandidCodeStyleSettings(settings)
     }
 

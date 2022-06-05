@@ -1,0 +1,7 @@
+Detect unused candid method
+<br>
+For a candid method to be unused it must be unresolved.
+This mean no matching rust method has been found.
+<br>
+A rust method must be annotated with something like #[query(name='matching-name')].
+If the name attribute is not used, the fallback is the rust method name.

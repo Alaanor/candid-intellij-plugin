@@ -1,7 +1,6 @@
 package com.github.alaanor.candid.psi.primitive
 
 import com.github.alaanor.candid.psi.stub.impl.CandidStubBase
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.extapi.psi.StubBasedPsiElementBase
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation

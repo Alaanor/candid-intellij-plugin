@@ -17,11 +17,27 @@ Features supported so far:
 - ⌨️ Auto Completion
 - 🔍 Find Usage
 - 💄 Code Format
+- 🦀 Rust integration
 <!-- Plugin description end -->
 
-## Early stage
+## 🦀  Rust integration
 
-This plugin is in the early stage and while this already has some basic feature it might as well miss some. It is in my plan to work on it for the next 5 weeks and submit as an entry for the [Supernova hackathon](https://dfinity.org/supernova/). If you have any feedback or issue feel free to open an issue or directly get in touch with me on discord Alaanor#9999.
+For the sake of correctness, the plugin will only enable rust integration for a given candid file if the followings are found in `dfx.json`:
+
+```json
+{
+  "canisters": {
+    "foobar-canister": {
+      "type": "rust",
+      "candid": "correct/path/to/candid-file.did",
+      "package": "rust-package-name"
+    }
+  }
+}
+```
+
+All three `type`, `candid` and `package` fields are required to enable rust integration. `dfx.json` is expected to be found at the root of the project.
+The type `custom` will not be supported because of the lack of explicit information that the plugin require to correctly resolve items.
 
 ## Installation
 

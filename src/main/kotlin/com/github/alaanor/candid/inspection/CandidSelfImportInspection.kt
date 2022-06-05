@@ -29,6 +29,6 @@ class CandidSelfImportInspection : LocalInspectionTool() {
             }
         }
 
-        return problemsHolder.resultsArray;
+        return problemsHolder.resultsArray
     }
 }
