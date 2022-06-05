@@ -20,6 +20,10 @@ object DfxJson {
 
     private val cachedRustCanister: MutableMap<Project, List<RustCanister>?> = mutableMapOf()
 
+    fun isRustCanister(project: Project, candidFile: VirtualFile): Boolean {
+        return getCached(project)?.find { it.candidFile.path == candidFile.path } != null
+    }
+
     fun getRustCanisterScopeFromCandidFile(project: Project, candidFile: VirtualFile): GlobalSearchScope? {
         return getCached(project)
             ?.find { it.candidFile.path == candidFile.path }

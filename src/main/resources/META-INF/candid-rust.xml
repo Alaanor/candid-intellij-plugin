@@ -4,5 +4,9 @@
                 language="Rust"
                 implementationClass="com.github.alaanor.candid.marker.CandidMethodRsLineMarkerProvider"/>
         <vfs.asyncListener implementation="com.github.alaanor.candid.listener.DfxFileListener"/>
+        <localInspection language="Candid"
+                         implementationClass="com.github.alaanor.candid.inspection.CandidUnusedMethodInspection"
+                         level="WARNING" displayName="Unused method" enabledByDefault="true"
+                         groupName="Candid inspections"/>
     </extensions>
 </idea-plugin>
