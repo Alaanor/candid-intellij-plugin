@@ -8,7 +8,7 @@ import com.intellij.psi.tree.IStubFileElementType
 interface CandidFileStub : PsiFileStub<CandidFile>, CandidStub<CandidFile> {
     object Type : IStubFileElementType<CandidFileStub>("CANDID_FILE", CandidLanguage.INSTANCE) {
         override fun getStubVersion(): Int {
-            return 1;
+            return 1
         }
 
         override fun getExternalId(): String {

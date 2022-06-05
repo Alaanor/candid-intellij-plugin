@@ -1,6 +1,5 @@
 package com.github.alaanor.candid.project
 
-import com.github.alaanor.candid.util.projectFilePath
 import com.intellij.json.psi.JsonFile
 import com.intellij.json.psi.JsonObject
 import com.intellij.openapi.project.Project

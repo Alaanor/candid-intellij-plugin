@@ -40,7 +40,7 @@ class CandidAddImportAction(
                 return "${value.name} (${value.projectFilePath()})"
             }
 
-            override fun getIconFor(value: CandidIdentifierDeclaration?): Icon? {
+            override fun getIconFor(value: CandidIdentifierDeclaration?): Icon {
                 return CandidIcons.Type
             }
 
