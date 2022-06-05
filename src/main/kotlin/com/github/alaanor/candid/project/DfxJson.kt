@@ -18,7 +18,7 @@ import java.nio.file.Paths
 
 object DfxJson {
 
-    private val cachedRustCanister: MutableMap<Project, List<RustCanister>?> = mutableMapOf()
+    private var cachedRustCanister: MutableMap<Project, List<RustCanister>?> = mutableMapOf()
 
     fun isRustCanister(project: Project, candidFile: VirtualFile): Boolean {
         return getCached(project)?.find { it.candidFile.path == candidFile.path } != null
@@ -46,10 +46,9 @@ object DfxJson {
 
     private fun getRustCanisters(project: Project): List<RustCanister>? {
         // find dfx json
-        val document = FilenameIndex
-            .getFilesByName(project, "dfx.json", GlobalSearchScope.projectScope(project), false)
-            .find { it.projectFilePath() == "dfx.json" }
-            ?.run { virtualFile.document } ?: return null
+        val document = LocalFileSystem.getInstance()
+            .findFileByPath(Paths.get(project.basePath, "dfx.json").toString())
+            ?.document ?: return null
 
         // retrieving the list of canisters declared from the dfx.json
         val json = PsiDocumentManager.getInstance(project).getPsiFile(document) as? JsonFile ?: return null
@@ -88,7 +87,9 @@ object DfxJson {
     }
 
     fun updateCache() {
-        cachedRustCanister.mapValues { getRustCanisters(it.key) }
+        cachedRustCanister = cachedRustCanister
+            .mapValues { getRustCanisters(it.key) }
+            .toMutableMap()
     }
 
     private data class RustCanister(
