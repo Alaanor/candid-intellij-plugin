@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+
+## [0.3.0]
 ### Added
 - 🔧 Line marker on rust files when a matching candid method is found
 - 🔧 Resolve candid method to their corresponding rust method
