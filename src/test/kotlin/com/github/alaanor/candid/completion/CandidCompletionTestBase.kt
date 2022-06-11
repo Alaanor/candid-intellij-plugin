@@ -11,14 +11,14 @@ abstract class CandidCompletionTestBase : LightPlatformCodeInsightFixture4TestCa
         inlineFile(code)
         myFixture.complete(CompletionType.BASIC)
         assertNotNull(myFixture.lookupElementStrings)
-        assertSameElements(myFixture.lookupElementStrings!!, expected)
+        assertContainsElements(myFixture.lookupElementStrings!!, expected)
     }
 
     protected fun checkContainsCompletion(expected: Collection<String>, vararg files: String) {
         myFixture.configureByFiles(*files)
         myFixture.complete(CompletionType.BASIC)
         assertNotNull(myFixture.lookupElementStrings)
-        assertSameElements(myFixture.lookupElementStrings!!, expected)
+        assertContainsElements(myFixture.lookupElementStrings!!, expected)
     }
 
     private fun inlineFile(code: String, name: String = "test.did") {
