@@ -30,10 +30,10 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
     override fun getAbsoluteRange(): TextRange = textRange
     override fun getRangeInElement(): TextRange {
         return element.stringLiteral!!.textRange
-            .shiftLeft(element.startOffset)
+            .shiftLeft(element.startOffset - 1)
     }
 
-    override fun getVariants(): Array<Any> {
+    override fun getVariants(): Array<LookupElementBuilder> {
         val files = FileTypeIndex.getFiles(CandidFileType.INSTANCE, GlobalSearchScope.projectScope(element.project))
         return files.mapNotNull { file ->
             if (file.path == element.filePath()) {
