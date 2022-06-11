@@ -8,21 +8,21 @@ class TopLevelKeywordCompletionTest : CandidCompletionTestBase() {
 
     @Test
     fun `should appear in an empty file`() =
-        checkContainsCompletion(topLevelKeyword, "/*caret*/")
+        checkContainsCompletion(topLevelKeyword, "<caret>")
 
     @Test
     fun `should appear after a type`() =
-        checkContainsCompletion(topLevelKeyword, "type Foobar = nat; /*caret*/")
+        checkContainsCompletion(topLevelKeyword, "type Foobar = nat; <caret>")
 
     @Test
     fun `should appear after an import`() =
-        checkContainsCompletion(topLevelKeyword, """import "non-existent-file.did"; /*caret*/""")
+        checkContainsCompletion(topLevelKeyword, """import "non-existent-file.did"; <caret>""")
 
     @Test
     fun `should not appear after a type keyword`() =
-        checkContainsCompletion(emptyList(), "type /*caret*/")
+        checkContainsCompletion(emptyList(), "type <caret>")
 
     @Test
     fun `should not appear after a service`() =
-        checkContainsCompletion(emptyList(), "service : {} /*caret*/")
+        checkContainsCompletion(emptyList(), "service : {} <caret>")
 }
