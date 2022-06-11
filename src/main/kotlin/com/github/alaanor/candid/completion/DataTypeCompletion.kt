@@ -30,6 +30,10 @@ class DataTypeCompletion : CandidBasicCompletion() {
             ),
         psiElement()
             .withSuperParent(2, CandidDataTypeImpl::class.java)
+            .withSuperParent(3, CandidFieldTypeRecordImpl::class.java)
+            .withSuperParent(4, CandidRecordStatementImpl::class.java),
+        psiElement()
+            .withSuperParent(2, CandidDataTypeImpl::class.java)
             .withSuperParent(3, CandidTupTypeImpl::class.java),
         psiElement()
             .andOr(
