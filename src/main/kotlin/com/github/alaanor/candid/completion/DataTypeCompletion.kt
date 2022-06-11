@@ -12,29 +12,29 @@ import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiElement
 
-val sharedDataTypeElementPattern = psiElement().andOr(
-    psiElement()
-        .afterLeaf("=")
-        .withSuperParent(2, CandidDataTypeImpl::class.java),
-    psiElement()
-        .afterLeaf(":")
-        .withSuperParent(2, CandidDataTypeImpl::class.java)
-        .andOr(
-            psiElement()
-                .withSuperParent(3, CandidFieldTypeRecordImpl::class.java)
-                .withSuperParent(4, CandidRecordStatementImpl::class.java),
-            psiElement()
-                .withSuperParent(3, CandidFieldTypeVariantImpl::class.java)
-                .withSuperParent(4, CandidVariantStatementImpl::class.java),
-        ),
-    psiElement()
-        .withSuperParent(2, CandidDataTypeImpl::class.java)
-        .withSuperParent(3, CandidTupTypeImpl::class.java)
-)
-
 class DataTypeCompletion : CandidBasicCompletion() {
     override val elementPattern: ElementPattern<out PsiElement> = psiElement().andOr(
-        sharedDataTypeElementPattern,
+        psiElement()
+            .afterLeaf("=")
+            .withSuperParent(2, CandidDataTypeImpl::class.java),
+        psiElement()
+            .afterLeaf(":")
+            .withSuperParent(2, CandidDataTypeImpl::class.java)
+            .andOr(
+                psiElement()
+                    .withSuperParent(3, CandidFieldTypeRecordImpl::class.java)
+                    .withSuperParent(4, CandidRecordStatementImpl::class.java),
+                psiElement()
+                    .withSuperParent(3, CandidFieldTypeVariantImpl::class.java)
+                    .withSuperParent(4, CandidVariantStatementImpl::class.java),
+            ),
+        psiElement()
+            .withSuperParent(2, CandidDataTypeImpl::class.java)
+            .withSuperParent(3, CandidFieldTypeRecordImpl::class.java)
+            .withSuperParent(4, CandidRecordStatementImpl::class.java),
+        psiElement()
+            .withSuperParent(2, CandidDataTypeImpl::class.java)
+            .withSuperParent(3, CandidTupTypeImpl::class.java),
         psiElement()
             .andOr(
                 psiElement().afterLeaf("opt"),
@@ -49,7 +49,7 @@ class DataTypeCompletion : CandidBasicCompletion() {
         "float32", "float64", "bool", "text",
         "null", "reserved", "empty", "principal",
         "record", "variant", "func", "service",
-        "blob"
+        "blob", "vec", "opt"
     )
 
     override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> {
@@ -60,10 +60,4 @@ class DataTypeCompletion : CandidBasicCompletion() {
             else -> EmptyInsertHandler
         }
     }
-}
-
-class VecOptTypeCompletion : CandidBasicCompletion() {
-    override val elementPattern: ElementPattern<out PsiElement> = sharedDataTypeElementPattern
-    override val tokenList: List<String> = listOf("opt", "vec")
-    override fun keywordInsertHandle(keyword: String): InsertHandler<LookupElement> = SpaceAfterInsertHandler
 }
