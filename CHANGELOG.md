@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+
+## [0.3.1]
 ### Fixed
 - Fixed import completion
 - Record fields without name now also get primitive type completion
