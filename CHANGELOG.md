@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+### Fixed
+- Bump to 222.* version
 
 ## [0.3.1]
 ### Fixed
