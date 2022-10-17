@@ -32,7 +32,7 @@ class CandidFile(fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProvi
         val imports = getImports()
         val exists = imports.find { requiredImportPath == it.importPathString() } != null
 
-        if (exists || this.filePath() == declaration.filePath()) {
+        if (exists || this.filePath() == declaration.filePath() || requiredImportPath == null) {
             return
         }
 
@@ -40,7 +40,9 @@ class CandidFile(fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProvi
     }
 
     fun addImportFor(target: PsiFile) {
-        addImport(this.getRelativePath(target.virtualFile))
+        this.getRelativePath(target.virtualFile)?.let {
+            addImport(it)
+        }
     }
 
     private fun addImport(path: String) {

@@ -41,6 +41,9 @@ class CandidImportReference(importStatement: CandidImportStatement, private var 
             }
 
             val relativePath = element.getRelativePath(file)
+            if (relativePath === null)
+                return@mapNotNull null
+
             val contextText = if (relativePath.contains('/')) "($relativePath)" else ""
             LookupElementBuilder.create(relativePath)
                 .withPresentableText(file.name)
