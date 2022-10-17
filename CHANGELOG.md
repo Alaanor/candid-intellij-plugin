@@ -3,6 +3,8 @@
 # candid-intellij-plugin Changelog
 
 ## [Unreleased]
+### Fixed
+- Handle different filesystem root when relativizing path
 
 ## [0.3.2]
 ### Fixed
