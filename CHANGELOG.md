@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+### Fixed
+- Bump to 232.* version
+
 ## 0.3.4 - 2023-04-03
 
 ### Fixed
