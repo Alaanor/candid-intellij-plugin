@@ -5,6 +5,7 @@ import com.intellij.json.psi.JsonObject
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.findDocument
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.*
@@ -12,7 +13,6 @@ import org.rust.cargo.project.model.CargoProjectsService
 import org.rust.cargo.project.workspace.CargoWorkspace
 import org.rust.cargo.project.workspace.PackageOrigin
 import org.rust.lang.core.psi.ext.findCargoPackage
-import org.rust.openapiext.document
 import java.nio.file.Paths
 
 object DfxJson {
@@ -45,9 +45,9 @@ object DfxJson {
 
     private fun getRustCanisters(project: Project): List<RustCanister>? {
         // find dfx json
-        val document = LocalFileSystem.getInstance()
-            .findFileByPath(Paths.get(project.basePath, "dfx.json").toString())
-            ?.document ?: return null
+        val localFs = LocalFileSystem.getInstance()
+        val file = localFs.findFileByPath(Paths.get(project.basePath, "dfx.json").toString())
+        val document = file?.findDocument() ?: return null
 
         // retrieving the list of canisters declared from the dfx.json
         val json = PsiDocumentManager.getInstance(project).getPsiFile(document) as? JsonFile ?: return null

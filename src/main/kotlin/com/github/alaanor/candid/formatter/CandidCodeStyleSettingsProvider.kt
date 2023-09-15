@@ -28,11 +28,11 @@ class CandidCodeStyleSettingsProvider : CodeStyleSettingsProvider() {
         cloneSettings: CodeStyleSettings,
         displayName: String
     ) : CodeStyleAbstractConfigurable(settings, cloneSettings, displayName) {
-        override fun createPanel(settings: CodeStyleSettings?): CodeStyleAbstractPanel {
+        override fun createPanel(settings: CodeStyleSettings): CodeStyleAbstractPanel {
             return CandidCodeStyleMainPanel(currentSettings, settings)
         }
     }
 
-    class CandidCodeStyleMainPanel(currentSettings: CodeStyleSettings, settings: CodeStyleSettings?) :
+    class CandidCodeStyleMainPanel(currentSettings: CodeStyleSettings, settings: CodeStyleSettings) :
         TabbedLanguageCodeStylePanel(CandidLanguage.INSTANCE, currentSettings, settings)
 }
